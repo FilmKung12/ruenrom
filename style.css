@@ -786,153 +786,129 @@ body.dark-mode .show-all:hover {
 /* ========================== */
 
 @media (max-width: 768px) {
-    /* ... (โค้ดมือถืออื่นๆ ที่มีอยู่แล้ว) ... */
-    /* ========================================= */
-    /* 🌟 จัดการช่องค้นหาในหน้าเพลง (และหน้าอื่นๆ) ให้พอดีจอมือถือ */
-    /* ========================================= */
-    .controls-wrapper {
+    /* --- 1. จัดการแถบ Navbar ให้ความสูงเท่ากัน และจับปุ่มไม่ให้ซ้อนทับกัน --- */
+    .navbar {
         padding: 0 20px !important;
-        /* เว้นระยะขอบซ้าย-ขวา ไม่ให้ติดขอบจอ */
-        width: 100%;
-        box-sizing: border-box;
+        margin: 12px !important;
+        border-radius: 12px !important;
+        height: 60px !important;
         display: flex;
-        flex-direction: column;
-        /* จับช่องค้นหากับปุ่มจัดเรียงมาเรียงซ้อนกันบนล่าง */
-        gap: 15px;
         align-items: center;
+        justify-content: center;
+        position: relative;
     }
-    .controls-wrapper .search-box {
-        width: 100% !important;
-        /* บังคับให้กว้างแค่ 100% ของพื้นที่ที่เหลือ */
-        min-width: 0 !important;
-        /* ล้างค่าเดิมที่อาจจะดันให้กล่องกว้างเกินไป */
-        max-width: 100% !important;
+    .logo {
+        position: absolute !important;
+        left: 20px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
         margin: 0 !important;
-        box-sizing: border-box;
     }
-    /* จัดการตัวช่องพิมพ์ข้อความ (Input) ด้านในไม่ให้ดันกล่องแตก */
-    .search-input,
-    .search-input input {
-        width: 100% !important;
-        box-sizing: border-box !important;
+    /* จับกล่องที่ครอบปุ่ม 🌙 และ ☰ ไปไว้ขวาสุด แล้วสั่งให้เรียงต่อกัน (gap) */
+    .navbar>div {
+        position: absolute !important;
+        right: 20px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        display: flex !important;
+        align-items: center;
+        gap: 15px !important;
+        /* ระยะห่างระหว่างพระจันทร์กับขีด 3 ขีด */
+    }
+    /* ยกเลิกการลอยของปุ่ม ☰ เพราะเราจับมันใส่กล่อง flex แล้ว */
+    .menu-btn {
+        display: block !important;
+        position: static !important;
+        /* ล้างค่าเดิม ไม่ให้แย่งที่พระจันทร์ */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* --- โค้ดจัดการเมนูสีขาวตอนกางออก --- */
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        gap: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+    }
+    .menu.show {
+        display: flex;
+    }
+    .menu a {
+        color: #4b2e2e;
+        padding: 5px 0;
+    }
+    .menu a.active {
+        color: #7b4f2c;
+        border-bottom: 2px solid #7b4f2c;
+        display: inline-block;
+        width: fit-content;
+    }
+    /* --- โหมดกลางคืน (Dark Mode) ของเมนู --- */
+    body.dark-mode .menu {
+        background: #1A110C;
+    }
+    body.dark-mode .menu a {
+        color: #EADBC8;
+    }
+    body.dark-mode .menu a.active {
+        color: #D4A373;
+        border-color: #D4A373;
+    }
+    /* --- การจัดเรียง Grid บนมือถือ --- */
+    .song-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .artist-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .songs-layer {
+        margin: 15px;
+        padding: 20px;
+    }
+    .title {
+        font-size: 22px;
     }
 }
 
 
-/* --- 1. จัดการแถบ Navbar ให้ความสูงเท่ากัน และจับปุ่มไม่ให้ซ้อนทับกัน --- */
+/* 🌟 ก๊อปโค้ดช่องค้นหามาวางต่อท้ายตรงนี้เลยครับ 👇 */
 
-.navbar {
+.controls-wrapper {
     padding: 0 20px !important;
-    margin: 12px !important;
-    border-radius: 12px !important;
-    height: 60px !important;
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.logo {
-    position: absolute !important;
-    left: 20px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin: 0 !important;
-}
-
-
-/* จับกล่องที่ครอบปุ่ม 🌙 และ ☰ ไปไว้ขวาสุด แล้วสั่งให้เรียงต่อกัน (gap) */
-
-.navbar>div {
-    position: absolute !important;
-    right: 20px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    display: flex !important;
-    align-items: center;
-    gap: 15px !important;
-    /* ระยะห่างระหว่างพระจันทร์กับขีด 3 ขีด */
-}
-
-
-/* ยกเลิกการลอยของปุ่ม ☰ เพราะเราจับมันใส่กล่อง flex แล้ว */
-
-.menu-btn {
-    display: block !important;
-    position: static !important;
-    /* ล้างค่าเดิม ไม่ให้แย่งที่พระจันทร์ */
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-
-/* --- โค้ดจัดการเมนูสีขาวตอนกางออก --- */
-
-.menu {
-    display: none;
     flex-direction: column;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    gap: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    gap: 15px;
+    align-items: center;
 }
 
-.menu.show {
-    display: flex;
+.controls-wrapper .search-box {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box;
 }
 
-.menu a {
-    color: #4b2e2e;
-    padding: 5px 0;
-}
-
-.menu a.active {
-    color: #7b4f2c;
-    border-bottom: 2px solid #7b4f2c;
-    display: inline-block;
-    width: fit-content;
+.search-input,
+.search-input input {
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 
-/* --- โหมดกลางคืน (Dark Mode) ของเมนู --- */
-
-body.dark-mode .menu {
-    background: #1A110C;
-}
-
-body.dark-mode .menu a {
-    color: #EADBC8;
-}
-
-body.dark-mode .menu a.active {
-    color: #D4A373;
-    border-color: #D4A373;
-}
+/* 👆 โค้ดช่องค้นหาจบแค่นี้ */
 
 
-/* --- การจัดเรียง Grid บนมือถือ --- */
-
-.song-container {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.artist-container {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.songs-layer {
-    margin: 15px;
-    padding: 20px;
-}
-
-.title {
-    font-size: 22px;
-}
+/* <--- สำคัญมาก: วงเล็บปีกกาปิดของ @media ต้องครอบอยู่ล่างสุดเสมอ ห้ามลบนะครับ! */
 
 @media (max-width: 600px) {
     #pagination {

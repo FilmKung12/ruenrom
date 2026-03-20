@@ -127,7 +127,7 @@ function showArtists() {
     container.innerHTML = htmlContent;
 }
 
-// ฟังก์ชันโชว์ศิลปินแบบสุ่ม (พร้อมการ์ด "ดูทั้งหมด" เติมช่องว่าง)
+// ฟังก์ชันโชว์ศิลปินแบบสุ่ม
 function showRandomArtists(limit) {
     const container = document.getElementById("artists");
     if (!container) return;
@@ -136,8 +136,6 @@ function showRandomArtists(limit) {
     const list = shuffledArtists.slice(0, limit);
 
     let htmlContent = "";
-
-    // 1. วนลูปสร้างการ์ดศิลปิน 5 คนแรก
     list.forEach((a) => {
         htmlContent += `
             <div class="artist-card" onclick="openArtist('${a.name}')">
@@ -146,14 +144,6 @@ function showRandomArtists(limit) {
             </div>
         `;
     });
-
-    // 🌟 2. สร้างการ์ด "ดูทั้งหมด ➔" เติมเป็นใบที่ 6 ต่อท้ายเสมอ
-    htmlContent += `
-        <div class="artist-card" onclick="window.location.href='artists.html'" style="display: flex; justify-content: center; align-items: center; background: transparent; box-shadow: none; border: 2px dashed #d4a373; cursor: pointer; min-height: 180px;">
-            <p style="color: #7b4f2c; font-weight: bold; font-size: 16px; margin: 0;">ดูทั้งหมด ➔</p>
-        </div>
-    `;
-
     container.innerHTML = htmlContent;
 }
 

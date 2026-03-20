@@ -905,40 +905,6 @@ body.dark-mode .show-all:hover {
 }
 
 
-/* ========================================= */
-
-
-/* 🌟 จัดการระยะขอบของหัวข้อหมวดหมู่ไม่ให้ทะลุจอ */
-
-
-/* ========================================= */
-
-
-/* หมายเหตุ: ผมใส่ชื่อคลาสเผื่อไว้หลายชื่อ (ใส่ลูกน้ำคั่น) 
-       เพราะไม่แน่ใจว่าใน HTML คุณตั้งชื่อกล่องที่ครอบหัวข้อนี้ว่าอะไรครับ */
-
-.section-header,
-.title-container,
-.category-header {
-    padding: 0 20px !important;
-    /* บังคับเว้นระยะซ้ายขวา 20px เสมอ */
-    box-sizing: border-box !important;
-    /* ไม่ให้กล่องขยายกว้างเกินจอ */
-    width: 100% !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-/* ปรับขนาดตัวอักษรหัวข้อบนมือถือลงนิดนึง จะได้ไม่เบียดกันครับ */
-
-.title {
-    font-size: 18px !important;
-    margin: 0 !important;
-}
-
-
 /* 👆 โค้ดช่องค้นหาจบแค่นี้ */
 
 

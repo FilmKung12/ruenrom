@@ -26,21 +26,27 @@
         </div>
     </header>
 
-    <form class="search-box" onsubmit="return false;">
-        <div class="search-input">
-            <span class="search-icon">🔎</span>
-            <input type="text" id="searchInput" placeholder="ค้นหาเพลง ศิลปิน..." autocomplete="off">
-            <span id="clearSearch" class="clear-search">✖</span>
-        </div>
-    </form>
+    <div class="controls-wrapper">
 
-    <div class="sort-container">
-        <select id="sortSelect" class="sort-select" onchange="applySort()">
-            <option value="default">เรียงตามลำดับเดิม</option>
-            <option value="title-asc">ชื่อเพลง (ก-ฮ, A-Z)</option>
-            <option value="title-desc">ชื่อเพลง (ฮ-ก, Z-A)</option>
-            <option value="artist-asc">ชื่อศิลปิน (ก-ฮ, A-Z)</option>
-        </select>
+        <div></div>
+
+        <form class="search-box" onsubmit="return false;">
+            <div class="search-input">
+                <span class="search-icon">🔎</span>
+                <input type="text" id="searchInput" placeholder="ค้นหาเพลง ศิลปิน..." autocomplete="off">
+                <span id="clearSearch" class="clear-search">✖</span>
+            </div>
+        </form>
+
+        <div class="sort-container">
+            <select id="sortSelect" class="sort-select" onchange="applySort()">
+                <option value="default">เรียงตามลำดับเดิม</option>
+                <option value="title-asc">ชื่อเพลง (ก-ฮ, A-Z)</option>
+                <option value="title-desc">ชื่อเพลง (ฮ-ก, Z-A)</option>
+                <option value="artist-asc">ชื่อศิลปิน (ก-ฮ, A-Z)</option>
+            </select>
+        </div>
+
     </div>
 
     <div class="songs-container">

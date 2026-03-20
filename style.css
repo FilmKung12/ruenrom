@@ -782,40 +782,31 @@ body.dark-mode .show-all:hover {
 /* ========================================= */
 
 
-/* 🌟 เลย์เอาต์ส่วนควบคุม (สำหรับหน้าจอคอมพิวเตอร์) */
+/* เลย์เอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) สำหรับทุกหน้า (หน้าจอคอมพิวเตอร์) */
 
 
 /* ========================================= */
 
-@media (min-width: 769px) {
-    .controls-wrapper {
-        display: grid !important;
-        grid-template-columns: 1fr auto 1fr !important;
-        /* แบ่ง 3 ล็อก: ซ้าย(ว่าง) กลาง(ค้นหา) ขวา(จัดเรียง) */
-        align-items: center;
-        /* จับให้ทุกอย่างอยู่กึ่งกลางบรรทัดเดียวกัน */
-        width: 100%;
-        max-width: 1000px;
-        /* 💡 ปรับเลขนี้ให้ความกว้างเท่ากับกลุ่มการ์ดศิลปินด้านล่าง */
-        margin: 0 auto 40px auto;
-        padding: 0 20px;
-    }
-    .controls-wrapper .search-box {
-        grid-column: 2 / 3;
-        /* บังคับล็อกให้อยู่คอลัมน์กลาง */
-        width: 400px !important;
-        /* ให้ช่องค้นหาในคอมยาวพอดีพิมพ์ */
-        margin: 0 !important;
-        justify-self: center;
-        /* จัดกึ่งกลางเป๊ะๆ */
-    }
-    .controls-wrapper .sort-container {
-        grid-column: 3 / 4;
-        /* บังคับล็อกให้อยู่คอลัมน์ขวา */
-        justify-self: end;
-        /* ดันปุ่มไปชิดขวาสุดของพื้นที่ */
-        margin: 0 !important;
-    }
+.controls-wrapper {
+    max-width: 1200px !important;
+    display: grid;
+    grid-template-columns: 0.5fr auto 0.5fr;
+    gap: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin: 0 auto 40px auto;
+    /* เพิ่ม margin ให้กล่องอยู่ตรงกลาง */
+}
+
+.controls-wrapper .search-box {
+    max-width: 900px !important;
+    width: 100% !important;
+    justify-self: center;
+}
+
+.controls-wrapper .sort-container {
+    margin: 0;
+    justify-self: end;
 }
 
 

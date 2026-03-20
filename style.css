@@ -101,14 +101,13 @@ a {
     gap: 10px;
 }
 
+
+/* 🌟 ยกเลิกการลอยตัวของปุ่ม 3 ขีด เพื่อไม่ให้มันไปทับพระจันทร์ */
+
 .menu-btn {
-    font-size: 28px;
-    cursor: pointer;
-    display: none;
-    color: white;
-    /* เติมสีให้ปุ่มแฮมเบอร์เกอร์มองเห็นชัดขึ้น */
-    background: transparent;
-    border: none;
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
 }
 
 
@@ -768,7 +767,7 @@ body.dark-mode .show-all:hover {
 /* ========================== */
 
 @media (max-width: 768px) {
-    /* --- 🌟 ส่วนที่ 1: ล็อกขนาดแถบเมนูสีน้ำตาลและปุ่ม ☰ ให้เป๊ะทุกหน้า --- */
+    /* --- 1. จัดการแถบ Navbar ให้ความสูงเท่ากัน และจับปุ่มไม่ให้ซ้อนทับกัน --- */
     .navbar {
         padding: 0 20px !important;
         margin: 12px !important;
@@ -786,27 +785,26 @@ body.dark-mode .show-all:hover {
         transform: translateY(-50%) !important;
         margin: 0 !important;
     }
-    .menu-btn {
-        display: block !important;
-        position: absolute !important;
-        right: 20px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        margin: 0 !important;
-        background: transparent;
-        border: none;
-        color: white;
-    }
+    /* จับกล่องที่ครอบปุ่ม 🌙 และ ☰ ไปไว้ขวาสุด แล้วสั่งให้เรียงต่อกัน (gap) */
     .navbar>div {
         position: absolute !important;
         right: 20px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
-        display: flex;
+        display: flex !important;
         align-items: center;
-        gap: 15px;
+        gap: 15px !important;
+        /* ระยะห่างระหว่างพระจันทร์กับขีด 3 ขีด */
     }
-    /* --- โค้ดเดิมของคุณ: จัดการเมนูสีขาวตอนกางออก --- */
+    /* ยกเลิกการลอยของปุ่ม ☰ เพราะเราจับมันใส่กล่อง flex แล้ว */
+    .menu-btn {
+        display: block !important;
+        position: static !important;
+        /* ล้างค่าเดิม ไม่ให้แย่งที่พระจันทร์ */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* --- โค้ดจัดการเมนูสีขาวตอนกางออก --- */
     .menu {
         display: none;
         flex-direction: column;
@@ -833,6 +831,7 @@ body.dark-mode .show-all:hover {
         display: inline-block;
         width: fit-content;
     }
+    /* --- โหมดกลางคืน (Dark Mode) ของเมนู --- */
     body.dark-mode .menu {
         background: #1A110C;
     }
@@ -843,6 +842,7 @@ body.dark-mode .show-all:hover {
         color: #D4A373;
         border-color: #D4A373;
     }
+    /* --- การจัดเรียง Grid บนมือถือ --- */
     .song-container {
         grid-template-columns: repeat(2, 1fr);
     }

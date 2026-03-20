@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพลงที่ถูกใจ | Ruenrom</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            color: #7B4F2C;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .songs-container {
+            padding: 0;
+            text-align: left;
+        }
+        /* --- สไตล์สถานะว่าง (Empty State) --- */
+        
+        .empty-state {
+            text-align: center;
+            color: #777;
+            padding: 40px 20px;
+            background: #fdfaf7;
+            border-radius: 12px;
+            border: 1px dashed #d6c4b0;
+        }
+        
+        .empty-title {
+            color: #7B4F2C;
+            margin-bottom: 10px;
+        }
+        
+        .empty-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        
+        .btn-primary {
+            background: #f5f5f5;
+            color: #4A3728;
+            border: 1px solid #d6c4b0;
+        }
+        
+        .btn-primary:hover {
+            background: #e8e8e8;
+        }
+        
+        .btn-secondary {
+            background: #EADBC8;
+            color: #4A3728;
+        }
+        
+        .btn-secondary:hover {
+            background: #d6c4b0;
+        }
+        /* --- สไตล์รายการเพลง --- */
+        
+        .song-card {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px 10px;
+            border-bottom: 1px solid #f0e6d8;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .song-card:hover {
+            background: rgba(234, 219, 200, 0.2);
+            border-radius: 8px;
+        }
+        
+        .song-number {
+            flex-shrink: 0;
+            width: 35px;
+            font-weight: bold;
+            color: #7B4F2C;
+        }
+        
+        .song-title {
+            flex: 1 1 40%;
+            text-align: left;
+            word-break: break-word;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .song-artist {
+            flex: 1 1 30%;
+            text-align: right;
+            word-break: break-word;
+            font-size: 18px;
+            color: #666;
+        }
+        /* ปุ่มลบออกจากรายการถูกใจ */
+        
+        .unlike-btn {
+            background: none;
+            border: none;
+            color: #d9534f;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        
+        .unlike-btn:hover {
+            transform: scale(1.2);
+            opacity: 0.7;
+        }
+        /* สำหรับมือถือ */
+        
+        @media (max-width: 600px) {
+            .song-card {
+                align-items: flex-start;
+            }
+            .song-title {
+                flex: 1 1 calc(100% - 85px);
+                font-size: 16px;
+            }
+            .song-artist {
+                flex: 1 1 100%;
+                width: 100%;
+                text-align: left;
+                margin-left: 45px;
+                margin-top: -5px;
+            }
+            .unlike-btn {
+                position: absolute;
+                right: 20px;
+                margin-top: -2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Ruenrom 🎧</a>
+
+        <nav id="menu" class="menu">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="songs.html">เพลง</a>
+            <a href="artists.html">ศิลปิน</a>
+            <a href="likes.html" class="active">ถูกใจ</a> <a href="playlists.html">เพลย์ลิสต์</a>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+        </div>
+    </header>
+
+    <section class="page-section">
+
+        <h1 class="page-title"> เพลงที่ถูกใจ ❤️</h1>
+
+        <div class="songs-container">
+            <div id="liked-songs-list">
+                <p class="loading-text">กำลังโหลดข้อมูล...</p>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLikedSongs();
+        });
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag));
+        }
+
+        // ฟังก์ชันโหลดเพลงที่ถูกใจจาก localStorage
+        function loadLikedSongs() {
+            const container = document.getElementById("liked-songs-list");
+
+            // ดึงข้อมูลเพลงที่ถูกใจ
+            let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
+
+            if (likedSongs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3 class="empty-title">ยังไม่มีเพลงที่ถูกใจ</h3>
+                        <p>ลองไปหาฟังและกดหัวใจให้เพลงที่คุณชอบดูสิ!</p>
+                        <div class="empty-actions">
+                            <a href="songs.html" class="btn-primary">🎵 ไปหน้าเพลง</a>
+                            <a href="artists.html" class="btn-secondary">🎤 ไปหน้าศิลปิน</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = likedSongs.map((song, i) => `
+                <div class="song-card">
+                    <div class="song-number">${i + 1}</div>
+                    <div class="song-title">${escapeHTML(song.title)}</div>
+                    <div class="song-artist">${escapeHTML(song.artist)}</div>
+                    <button class="unlike-btn" onclick="removeLike(${i})" title="ลบออกจากรายการถูกใจ">❤️</button>
+                </div>
+            `).join('');
+        }
+
+        // ฟังก์ชันสำหรับลบเพลงออกจากรายการถูกใจ
+        function removeLike(index) {
+            let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
+
+            // ลบเพลงที่ตำแหน่ง index ออก 1 ตัว
+            likedSongs.splice(index, 1);
+
+            // บันทึกกลับลงไปใน localStorage
+            localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
+
+            // โหลดรายการใหม่เพื่ออัปเดตหน้าจอ
+            loadLikedSongs();
+        }
+    </script>
+</body>
+
+</html>

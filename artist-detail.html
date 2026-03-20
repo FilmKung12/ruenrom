@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดศิลปิน | Ruenrom</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .artist-detail-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .top-back-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .top-back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            color: #4A3728;
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .top-back-btn:hover {
+            background: #EADBC8;
+            border-color: #d6c4b0;
+        }
+        
+        .artist-image {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            margin: 0 auto 20px;
+            border: 5px solid #EADBC8;
+        }
+        
+        .artist-title {
+            font-size: 32px;
+            color: #7B4F2C;
+            margin-bottom: 30px;
+        }
+        
+        .songs-container {
+            padding: 0;
+            text-align: left;
+        }
+        
+        .back-btn {
+            background: #EADBC8;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+            display: inline-block;
+            text-decoration: none;
+            color: #4A3728;
+            margin-top: 40px;
+        }
+        
+        .back-btn:hover {
+            background: #d6c4b0;
+        }
+        
+        .loading-text {
+            text-align: center;
+            color: #777;
+        }
+        
+        .error-text {
+            text-align: center;
+            color: #d9534f;
+            font-weight: bold;
+        }
+        /* --- สไตล์รายการเพลง --- */
+        
+        .song-card {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            border-bottom: 1px solid #f0e6d8;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .song-card:hover {
+            background: rgba(234, 219, 200, 0.2);
+            border-radius: 8px;
+        }
+        
+        .song-number {
+            flex-shrink: 0;
+            width: 35px;
+            font-weight: bold;
+            color: #7B4F2C;
+        }
+        
+        .song-title {
+            flex: 1 1 40%;
+            text-align: left;
+            word-break: break-word;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .song-artist {
+            flex: 1 1 30%;
+            text-align: right;
+            word-break: break-word;
+            font-size: 18px;
+            color: #666;
+            margin-right: 80px;
+        }
+        /* ปุ่มจัดการเพลง (หัวใจ & บวก) */
+        
+        .song-actions {
+            position: absolute;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+            transition: transform 0.2s ease, color 0.2s ease;
+            color: #ccc;
+            outline: none;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .action-btn.liked {
+            color: #d9534f;
+        }
+        
+        .action-btn.add-btn {
+            color: #7B4F2C;
+        }
+        /* --- 📱 สไตล์สำหรับมือถือ --- */
+        
+        @media (max-width: 600px) {
+            .song-card {
+                align-items: flex-start;
+            }
+            .song-title {
+                flex: 1 1 calc(100% - 100px);
+                font-size: 16px;
+            }
+            .song-artist {
+                flex: 1 1 100%;
+                width: 100%;
+                text-align: left;
+                margin-left: 45px;
+                margin-top: -5px;
+                margin-right: 0;
+            }
+            .song-actions {
+                top: 15px;
+            }
+        }
+        /* --- 🪟 ป๊อปอัป (Modal) สำหรับเลือกเพลย์ลิสต์ --- */
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+            border: none;
+            background: none;
+        }
+        
+        .modal-close:hover {
+            color: #333;
+        }
+        
+        .playlist-option {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #fdfaf7;
+            border: 1px solid #EADBC8;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #4A3728;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: left;
+        }
+        
+        .playlist-option:hover {
+            background: #EADBC8;
+            font-weight: bold;
+        }
+        
+        .no-playlist-msg {
+            color: #777;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Ruenrom 🎧</a>
+        <nav id="menu" class="menu">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="songs.html">เพลง</a>
+            <a href="artists.html" class="active">ศิลปิน</a>
+            <a href="likes.html">ถูกใจ</a>
+            <a href="playlists.html">เพลย์ลิสต์</a>
+        </nav>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+    </header>
+
+    <section class="artist-detail-section">
+
+        <div class="top-back-container">
+            <a href="artists.html" class="top-back-btn" onclick="history.back(); return false;">
+                ← ย้อนกลับ
+            </a>
+        </div>
+
+        <img id="artistImageDisplay" class="artist-image" src="" alt="รูปภาพศิลปิน">
+        <h1 id="artistNameDisplay" class="artist-title">กำลังโหลดข้อมูล...</h1>
+
+        <div class="songs-container">
+            <div id="artist-songs-list">
+                <p class="loading-text">กำลังค้นหาข้อมูล...</p>
+            </div>
+        </div>
+
+        <div>
+            <a href="artists.html" class="back-btn">← กลับไปหน้าศิลปินทั้งหมด</a>
+        </div>
+    </section>
+
+    <div id="playlistModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 style="color: #7B4F2C; margin-top: 0;">เพิ่มลงเพลย์ลิสต์</h2>
+            <p id="modalSongName" style="color: #666; font-size: 14px; margin-bottom: 20px;"></p>
+
+            <div id="playlistOptionsContainer">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // เก็บข้อมูลเพลงที่กำลังจะเพิ่มชั่วคราว
+        let currentAddingSong = {
+            title: "",
+            artist: ""
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const finalArtistName = urlParams.get('artist') || localStorage.getItem("currentArtist");
+
+            if (finalArtistName) {
+                document.getElementById("artistNameDisplay").textContent = finalArtistName;
+                document.title = `${finalArtistName} | Ruenrom`;
+                loadData(finalArtistName);
+            } else {
+                document.getElementById("artistNameDisplay").textContent = "ไม่พบข้อมูลศิลปิน";
+                document.getElementById("artist-songs-list").innerHTML = "";
+            }
+        });
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag));
+        }
+
+        function parseCSVLine(text) {
+            let result = [];
+            let inQuotes = false;
+            let currentStr = '';
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                if (char === '"' && text[i + 1] === '"') {
+                    currentStr += '"';
+                    i++;
+                } else if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(currentStr.trim());
+                    currentStr = '';
+                } else {
+                    currentStr += char;
+                }
+            }
+            result.push(currentStr.trim());
+            return result;
+        }
+
+        async function loadData(targetArtist) {
+            const targetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSn2Ap5lMqWSJirKsmDppkUPOQvEN4gActX2KGUOts3Ah-gWPFQtjgmiTCN2GvfZUwCG5JpSVH8cSeY/pub?output=csv";
+
+            try {
+                const response = await fetch(targetURL);
+                if (!response.ok) throw new Error("Network response was not ok");
+
+                const csvText = await response.text();
+                const rows = csvText.trim().split(/\r?\n/).slice(1);
+
+                let filteredSongs = [];
+                const cleanTargetArtist = targetArtist.trim().toLowerCase();
+
+                rows.forEach(row => {
+                    const cols = parseCSVLine(row);
+                    if (cols.length >= 3) {
+                        const sSongTitle = cols[1] ? cols[1].trim() : "";
+                        const sArtist = cols[2] ? cols[2].trim() : "";
+
+                        const cleanTargetArtist = targetArtist.trim().toLowerCase();
+                        const fullArtistName = sArtist.toLowerCase();
+
+                        // 🔥 ขั้นตอนการแยกชื่อศิลปินหลัก:
+                        // แยกชื่อด้วยตัวแบ่งต่างๆ เช่น feat., ft., ร่วมกับ, x, & 
+                        // แล้วหยิบเอาแค่ "ชื่อแรกสุด" (Index 0) มาเช็ก
+                        const mainArtistOnly = fullArtistName.split(/feat\.|ft\.|ร่วมกับ|x|&/i)[0].trim();
+
+                        // เช็กว่า "ศิลปินหลัก" ตรงกับหน้าที่เรากำลังดูอยู่ไหม
+                        if (mainArtistOnly.includes(cleanTargetArtist)) {
+                            filteredSongs.push({
+                                title: sSongTitle,
+                                artist: sArtist // แต่ตอนแสดงผล ยังโชว์ชื่อเต็มที่มีคน Feat. ได้เหมือนเดิม
+                            });
+                        }
+                    }
+                });
+
+                document.getElementById("artistImageDisplay").style.display = "none";
+                renderSongs(filteredSongs);
+
+            } catch (err) {
+                console.error("Error fetching data:", err);
+                document.getElementById("artist-songs-list").innerHTML =
+                    "<p class='error-text'>เกิดข้อผิดพลาดในการเชื่อมต่อข้อมูล กรุณาลองใหม่อีกครั้ง</p>";
+            }
+        }
+
+        function renderSongs(songs) {
+            const container = document.getElementById("artist-songs-list");
+            if (songs.length === 0) {
+                container.innerHTML = "<p class='loading-text'>ไม่พบรายการเพลงของศิลปินคนนี้</p>";
+                return;
+            }
+
+            const likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
+
+            container.innerHTML = songs.map((song, i) => {
+                const isLiked = likedSongs.some(likedSong => likedSong.title === song.title && likedSong.artist === song.artist);
+                const likeClass = isLiked ? 'action-btn liked' : 'action-btn';
+
+                // 🔥 ไฮไลท์การแก้ไข: ซ่อนชื่อเพลงและศิลปินไว้ใน data-title และ data-artist แทนการส่งผ่าน onclick
+                return `
+                    <div class="song-card">
+                        <div class="song-number">${i + 1}</div>
+                        <div class="song-title">${escapeHTML(song.title)}</div>
+                        <div class="song-artist">${escapeHTML(song.artist)}</div>
+                        
+                        <div class="song-actions">
+                            <button class="action-btn add-btn" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleOpenModal(this)" title="เพิ่มลงเพลย์ลิสต์">➕</button>
+                            <button class="${likeClass}" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleToggleLike(this)" title="ถูกใจ">❤</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // --- ฟังก์ชันจัดการปุ่มที่ดึงค่ามาจาก data- attribute ---
+        function handleToggleLike(btnElement) {
+            const title = btnElement.getAttribute('data-title');
+            const artist = btnElement.getAttribute('data-artist');
+
+            let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
+            const songIndex = likedSongs.findIndex(song => song.title === title && song.artist === artist);
+
+            if (songIndex === -1) {
+                likedSongs.push({
+                    title,
+                    artist
+                });
+                btnElement.classList.add('liked');
+            } else {
+                likedSongs.splice(songIndex, 1);
+                btnElement.classList.remove('liked');
+            }
+            localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
+        }
+
+        function handleOpenModal(btnElement) {
+            const title = btnElement.getAttribute('data-title');
+            const artist = btnElement.getAttribute('data-artist');
+            openModal(title, artist);
+        }
+
+        // --- ระบบเพิ่มเพลงเข้าเพลย์ลิสต์ (Modal) ---
+        function openModal(title, artist) {
+            currentAddingSong = {
+                title,
+                artist
+            };
+            document.getElementById("modalSongName").textContent = `เพลง: ${title} - ${artist}`;
+
+            const container = document.getElementById("playlistOptionsContainer");
+            let playlists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+
+            if (playlists.length === 0) {
+                container.innerHTML = `
+                    <p class="no-playlist-msg">คุณยังไม่มีเพลย์ลิสต์เลย</p>
+                    <a href="playlists.html" style="display:inline-block; background:#EADBC8; padding:8px 16px; border-radius:20px; text-decoration:none; color:#4A3728; font-weight:bold;">ไปสร้างเพลย์ลิสต์กัน</a>
+                `;
+            } else {
+                container.innerHTML = playlists.map(pl => `
+                    <button class="playlist-option" onclick="addSongToPlaylist('${pl.id}')">
+                        📂 ${escapeHTML(pl.name)} (${pl.songs ? pl.songs.length : 0} เพลง)
+                    </button>
+                `).join('');
+            }
+
+            document.getElementById("playlistModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("playlistModal").style.display = "none";
+        }
+
+        function addSongToPlaylist(playlistId) {
+            let playlists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+            const plIndex = playlists.findIndex(p => p.id === playlistId);
+
+            if (plIndex > -1) {
+                const alreadyExists = playlists[plIndex].songs.some(s => s.title === currentAddingSong.title && s.artist === currentAddingSong.artist);
+
+                if (alreadyExists) {
+                    alert("เพลงนี้อยู่ในเพลย์ลิสต์นี้แล้วครับ!");
+                } else {
+                    playlists[plIndex].songs.push(currentAddingSong);
+                    localStorage.setItem('userPlaylists', JSON.stringify(playlists));
+                    alert("เพิ่มเพลงลงเพลย์ลิสต์เรียบร้อย!");
+                    closeModal();
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพลย์ลิสต์ | Ruenrom</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            color: #7B4F2C;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        /* --- ส่วนของการสร้างเพลย์ลิสต์ --- */
+        
+        .create-playlist-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .playlist-input {
+            padding: 12px 20px;
+            border: 2px solid #EADBC8;
+            border-radius: 25px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #4A3728;
+        }
+        
+        .playlist-input:focus {
+            border-color: #7B4F2C;
+            box-shadow: 0 0 8px rgba(123, 79, 44, 0.2);
+        }
+        
+        .create-btn {
+            background: #7B4F2C;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(123, 79, 44, 0.2);
+        }
+        
+        .create-btn:hover {
+            background: #5a3920;
+            transform: translateY(-2px);
+        }
+        /* --- ส่วนแสดงรายการเพลย์ลิสต์แบบ Grid (ตาราง) --- */
+        
+        .playlists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+        
+        .playlist-card {
+            background: #ffffff;
+            border: 1px solid #f0e6d8;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .playlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: #EADBC8;
+        }
+        
+        .playlist-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .playlist-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 5px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .playlist-count {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+        
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #d9534f;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: 0.2s;
+        }
+        
+        .playlist-card:hover .delete-btn {
+            opacity: 1;
+        }
+        
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+        /* --- กรณีที่ยังไม่มีเพลย์ลิสต์ --- */
+        
+        .empty-state {
+            text-align: center;
+            color: #777;
+            padding: 40px 20px;
+            background: #fdfaf7;
+            border-radius: 12px;
+            border: 1px dashed #d6c4b0;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Ruenrom 🎧</a>
+
+        <nav id="menu" class="menu">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="songs.html">เพลง</a>
+            <a href="artists.html">ศิลปิน</a>
+            <a href="likes.html">ถูกใจ</a>
+            <a href="playlists.html" class="active">เพลย์ลิสต์</a> </nav>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+        </div>
+    </header>
+
+    <section class="page-section">
+
+        <h1 class="page-title"> เพลย์ลิสต์ของคุณ 📂</h1>
+
+        <div class="create-playlist-box">
+            <input type="text" id="newPlaylistName" class="playlist-input" placeholder="ตั้งชื่อเพลย์ลิสต์ใหม่..." onkeypress="handleKeyPress(event)">
+            <button class="create-btn" onclick="createNewPlaylist()">+ สร้าง</button>
+        </div>
+
+        <div id="playlists-container" class="playlists-grid">
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPlaylists();
+        });
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag));
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                createNewPlaylist();
+            }
+        }
+
+        // --- 1. โหลดข้อมูลเพลย์ลิสต์มาแสดงผล ---
+        function loadPlaylists() {
+            const container = document.getElementById("playlists-container");
+            let playlists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+
+            if (playlists.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3 style="color: #7B4F2C;">ยังไม่มีเพลย์ลิสต์</h3>
+                        <p>พิมพ์ชื่อเพลย์ลิสต์ที่คุณต้องการในช่องด้านบน แล้วกดสร้างได้เลย!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = playlists.map(playlist => `
+                <div class="playlist-card" onclick="openPlaylist('${playlist.id}')">
+                    <span class="playlist-icon">💽</span>
+                    <h3 class="playlist-name" title="${escapeHTML(playlist.name)}">${escapeHTML(playlist.name)}</h3>
+                    <p class="playlist-count">มี ${playlist.songs ? playlist.songs.length : 0} เพลง</p>
+                    
+                    <button class="delete-btn" onclick="event.stopPropagation(); deletePlaylist('${playlist.id}')" title="ลบเพลย์ลิสต์">🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        // --- 2. สร้างเพลย์ลิสต์ใหม่ ---
+        function createNewPlaylist() {
+            const inputField = document.getElementById("newPlaylistName");
+            const name = inputField.value.trim();
+
+            if (!name) {
+                alert("กรุณาตั้งชื่อเพลย์ลิสต์ก่อนสร้างนะครับ!");
+                return;
+            }
+
+            let playlists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+
+            const isDuplicate = playlists.some(p => p.name.toLowerCase() === name.toLowerCase());
+            if (isDuplicate) {
+                alert("ชื่อเพลย์ลิสต์นี้มีอยู่แล้ว ลองตั้งชื่ออื่นดูนะครับ");
+                return;
+            }
+
+            const newPlaylist = {
+                id: Date.now().toString(),
+                name: name,
+                songs: []
+            };
+
+            playlists.push(newPlaylist);
+            localStorage.setItem('userPlaylists', JSON.stringify(playlists));
+
+            inputField.value = "";
+            loadPlaylists();
+        }
+
+        // --- 3. ลบเพลย์ลิสต์ ---
+        function deletePlaylist(id) {
+            if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบเพลย์ลิสต์นี้?")) {
+                let playlists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+                playlists = playlists.filter(p => p.id !== id);
+                localStorage.setItem('userPlaylists', JSON.stringify(playlists));
+                loadPlaylists();
+            }
+        }
+
+        // --- 4. กดเข้าเพลย์ลิสต์ ---
+        function openPlaylist(id) {
+            window.location.href = "playlist-detail.html?id=" + id;
+        }
+    </script>
+</body>
+
+</html>

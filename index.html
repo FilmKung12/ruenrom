@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruenrom</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Ruenrom 🎧</a>
+
+        <nav id="menu" class="menu">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="songs.html">เพลง</a>
+            <a href="artists.html">ศิลปิน</a>
+            <a href="likes.html">ถูกใจ</a>
+            <a href="playlists.html">เพลย์ลิสต์</a>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="darkModeToggle" class="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+        </div>
+    </header>
+
+    <section class="songs-layer">
+        <h2 class="title">เพลงใหม่ล่าสุด</h2>
+        <div id="songs" class="song-container">
+        </div>
+    </section>
+
+    <section class="artist-section">
+        <div class="artist-header">
+            <h2 class="title">หมวดศิลปินอิสระ</h2>
+            <a href="artists.html" class="show-all">แสดงทั้งหมด ></a>
+        </div>
+        <div id="artists" class="artist-container">
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

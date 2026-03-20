@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดเพลย์ลิสต์ | Ruenrom</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .top-back-container {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        .top-back-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            color: #4A3728;
+            transition: all 0.2s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .top-back-btn:hover {
+            background: #EADBC8;
+            border-color: #d6c4b0;
+        }
+        
+        .playlist-title {
+            font-size: 32px;
+            color: #7B4F2C;
+            margin-bottom: 10px;
+        }
+        
+        .playlist-info {
+            color: #777;
+            margin-bottom: 30px;
+        }
+        
+        .songs-container {
+            padding: 0;
+            text-align: left;
+        }
+        /* สไตล์รายการเพลง */
+        
+        .song-card {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            border-bottom: 1px solid #f0e6d8;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .song-card:hover {
+            background: rgba(234, 219, 200, 0.2);
+            border-radius: 8px;
+        }
+        
+        .song-number {
+            flex-shrink: 0;
+            width: 35px;
+            font-weight: bold;
+            color: #7B4F2C;
+        }
+        
+        .song-title {
+            flex: 1 1 40%;
+            text-align: left;
+            word-break: break-word;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .song-artist {
+            flex: 1 1 30%;
+            text-align: right;
+            word-break: break-word;
+            font-size: 14px;
+            color: #666;
+            margin-right: 40px;
+            /* เผื่อที่ให้ปุ่มลบ */
+        }
+        /* ปุ่มลบเพลงออกจากเพลย์ลิสต์ */
+        
+        .remove-btn {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #d9534f;
+            opacity: 0.5;
+            transition: 0.2s;
+        }
+        
+        .song-card:hover .remove-btn {
+            opacity: 1;
+        }
+        
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+        /* หน้าจอว่างเปล่า (Empty State) */
+        
+        .empty-state {
+            text-align: center;
+            color: #777;
+            padding: 40px 20px;
+            background: #fdfaf7;
+            border-radius: 12px;
+            border: 1px dashed #d6c4b0;
+        }
+        
+        .empty-state h3 {
+            color: #7B4F2C;
+            margin-top: 0;
+        }
+        
+        .empty-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .empty-actions a {
+            padding: 10px 20px;
+            background: #EADBC8;
+            color: #4A3728;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        
+        .empty-actions a:hover {
+            background: #d6c4b0;
+        }
+        
+        @media (max-width: 600px) {
+            .song-card {
+                align-items: flex-start;
+            }
+            .song-title {
+                flex: 1 1 calc(100% - 50px);
+                font-size: 16px;
+            }
+            .song-artist {
+                flex: 1 1 100%;
+                width: 100%;
+                text-align: left;
+                margin-left: 45px;
+                margin-top: -5px;
+                margin-right: 0;
+            }
+            .remove-btn {
+                top: 15px;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">Ruenrom 🎧</a>
+
+        <nav id="menu" class="menu">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="songs.html">เพลง</a>
+            <a href="artists.html">ศิลปิน</a>
+            <a href="likes.html">ถูกใจ</a>
+            <a href="playlists.html" class="active">เพลย์ลิสต์</a>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+        </div>
+    </header>
+
+    <section class="page-section">
+        <div class="top-back-container">
+            <a href="playlists.html" class="top-back-btn">← กลับไปหน้าเพลย์ลิสต์</a>
+        </div>
+
+        <h1 id="playlistNameDisplay" class="playlist-title">กำลังโหลด...</h1>
+        <p id="playlistCountDisplay" class="playlist-info"></p>
+
+        <div class="songs-container">
+            <div id="playlist-songs-list">
+                <p style="text-align: center; color: #777;">กำลังโหลดข้อมูล...</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+    <script>
+        let currentPlaylistId = "";
+        let allPlaylists = [];
+        let currentPlaylistIndex = -1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentPlaylistId = urlParams.get('id');
+
+            allPlaylists = JSON.parse(localStorage.getItem('userPlaylists')) || [];
+            currentPlaylistIndex = allPlaylists.findIndex(p => p.id === currentPlaylistId);
+
+            if (currentPlaylistIndex > -1) {
+                const playlist = allPlaylists[currentPlaylistIndex];
+                document.getElementById("playlistNameDisplay").textContent = " " + playlist.name;
+                document.title = playlist.name + " | Ruenrom";
+                renderSongs(playlist.songs || []);
+            } else {
+                document.getElementById("playlistNameDisplay").textContent = "ไม่พบเพลย์ลิสต์";
+                document.getElementById("playlistCountDisplay").textContent = "";
+                document.getElementById("playlist-songs-list").innerHTML = "";
+            }
+        });
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag));
+        }
+
+        function renderSongs(songs) {
+            document.getElementById("playlistCountDisplay").textContent = `มีทั้งหมด ${songs.length} เพลง`;
+            const container = document.getElementById("playlist-songs-list");
+
+            // เช็กดูว่าข้อมูลเพลงที่ดึงมา มีหน้าตาโครงสร้าง (Keys) อย่างไร
+            console.log("ข้อมูลเพลงในเพลย์ลิสต์:", songs);
+
+            if (songs.length === 0) {
+                container.innerHTML = `
+            <div class="empty-state">
+                <h3>ยังไม่มีเพลงในเพลย์ลิสต์นี้</h3>
+                <p>ไปที่หน้าศิลปินเพื่อค้นหาเพลง แล้วกดปุ่ม ➕ เพิ่มเพลงเข้ามาได้เลยครับ!</p>
+                <div class="empty-actions">
+                    <a href="artists.html">🎤 ไปหน้าศิลปิน</a>
+                </div>
+            </div>
+        `;
+                return;
+            }
+
+            container.innerHTML = songs.map((song, i) => {
+                // ดักจับเผื่อคีย์ชื่อ name แทน title หรือถ้าไม่มีข้อมูลเลย
+                const displayTitle = song.title || song.name || "ไม่ทราบชื่อเพลง";
+                const displayArtist = song.artist || "ไม่ทราบชื่อศิลปิน";
+
+                return `
+        <div class="song-card">
+            <div class="song-number">${i + 1}</div>
+            <div class="song-title">${escapeHTML(displayTitle)}</div>
+            <div class="song-artist">${escapeHTML(displayArtist)}</div>
+            <button class="remove-btn" onclick="removeSong(${i})" title="ลบออกจากเพลย์ลิสต์">🗑️</button>
+        </div>
+        `;
+            }).join('');
+        }
+
+        function removeSong(songIndex) {
+            if (confirm("ต้องการลบเพลงนี้ออกจากเพลย์ลิสต์ใช่ไหม?")) {
+                // ลบเพลงออกจาก Array
+                allPlaylists[currentPlaylistIndex].songs.splice(songIndex, 1);
+
+                // บันทึกกลับลง localStorage
+                localStorage.setItem('userPlaylists', JSON.stringify(allPlaylists));
+
+                // โหลดหน้าจอใหม่
+                renderSongs(allPlaylists[currentPlaylistIndex].songs);
+            }
+        }
+    </script>
+</body>
+
+</html>

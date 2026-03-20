@@ -879,24 +879,40 @@ body.dark-mode .show-all:hover {
     }
 }
 
+
+/* ========================================= */
+
+
+/* 🌟 จัดการช่องค้นหาให้หน้าเพลงและหน้าศิลปินเหมือนกันเป๊ะ */
+
+
+/* ========================================= */
+
 .controls-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    /* จัดให้เรียงเป็น 1 แถวบน-ล่าง */
+    justify-items: center !important;
+    gap: 15px !important;
     padding: 0 20px !important;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+    /* เว้นขอบซ้ายขวาให้สวยงาม */
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 .controls-wrapper .search-box {
-    width: 90% !important;
-    /* หดความกว้างลงมานิดนึง ไม่ให้ชิดขอบจอ */
-    max-width: 320px !important;
-    /* ล็อกความกว้างให้เท่าๆ กับปุ่มจัดเรียงด้านล่าง */
-    margin: 0 auto !important;
-    /* จัดให้อยู่กึ่งกลางหน้าจอ */
-    box-sizing: border-box;
+    width: 100% !important;
+    /* กว้างเต็มพื้นที่ที่เว้นขอบไว้ */
+    max-width: 100% !important;
+    /* ปลดล็อกข้อจำกัดความกว้าง */
+    min-width: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.controls-wrapper .sort-container {
+    justify-self: center !important;
+    width: auto !important;
 }
 
 .search-input,

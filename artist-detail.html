@@ -168,6 +168,10 @@
             .song-title {
                 flex: 1 1 calc(100% - 100px);
                 font-size: 16px;
+                /* 🌟 เพิ่มการตัดคำด้วยจุดไข่ปลา สำหรับชื่อเพลง */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .song-artist {
                 flex: 1 1 100%;
@@ -176,6 +180,10 @@
                 margin-left: 45px;
                 margin-top: -5px;
                 margin-right: 0;
+                /* 🌟 เพิ่มการตัดคำด้วยจุดไข่ปลา สำหรับชื่อศิลปิน */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .song-actions {
                 top: 15px;

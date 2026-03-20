@@ -891,12 +891,11 @@ body.dark-mode .show-all:hover {
 
 .controls-wrapper .search-box {
     width: 90% !important;
-    /* 🌟 เปลี่ยนจาก 100% เป็น 85% หรือ 90% (ยิ่งเลขนิด ช่องยิ่งสั้นลง) */
-    min-width: 0 !important;
-    max-width: 400px !important;
-    /* 🌟 บังคับไม่ให้ยาวเกิน 350px บนจอมือถือ */
+    /* หดความกว้างลงมานิดนึง ไม่ให้ชิดขอบจอ */
+    max-width: 320px !important;
+    /* ล็อกความกว้างให้เท่าๆ กับปุ่มจัดเรียงด้านล่าง */
     margin: 0 auto !important;
-    /* สั่งให้อยู่กึ่งกลาง */
+    /* จัดให้อยู่กึ่งกลางหน้าจอ */
     box-sizing: border-box;
 }
 

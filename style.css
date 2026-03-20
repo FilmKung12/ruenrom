@@ -944,51 +944,6 @@ body.dark-mode .show-all:hover {
 
 /* <--- สำคัญมาก: วงเล็บปีกกาปิดของ @media ต้องครอบอยู่ล่างสุดเสมอ ห้ามลบนะครับ! */
 
-
-/* ========================================= */
-
-
-/* 🌟 จัดการแถบหัวข้อศิลปิน ไม่ให้ทะลุขอบจอ */
-
-
-/* ========================================= */
-
-.artist-header {
-    padding: 0 20px !important;
-    /* เว้นขอบอากาศซ้าย-ขวา 20px */
-    box-sizing: border-box !important;
-    width: 100% !important;
-    display: flex;
-    justify-content: space-between;
-    /* ดันข้อความไปอยู่คนละฝั่ง */
-    align-items: center;
-}
-
-
-/* ปรับขนาดฟอนต์บนมือถือให้ดูพอดี ไม่เบียดกัน */
-
-.artist-header .title {
-    font-size: 18px !important;
-    margin: 0 !important;
-}
-
-.artist-header .show-all {
-    font-size: 14px !important;
-}
-
-
-/* 🌟 เพิ่มเติม: จัดการปุ่ม 🌙 และ ☰ ในกล่อง .nav-actions ให้เรียงกันสวยงาม */
-
-.nav-actions {
-    position: absolute !important;
-    right: 20px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    display: flex !important;
-    align-items: center;
-    gap: 15px !important;
-}
-
 @media (max-width: 600px) {
     #pagination {
         gap: 5px;

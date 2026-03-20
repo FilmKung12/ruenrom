@@ -779,6 +779,72 @@ body.dark-mode .show-all:hover {
 }
 
 
+/* ========================================= */
+
+
+/* เลย์เอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) สำหรับทุกหน้า */
+
+
+/* ========================================= */
+
+.controls-wrapper {
+    max-width: 1200px !important;
+    display: grid;
+    grid-template-columns: 0.5fr auto 0.5fr;
+    gap: 20px;
+    padding: 0 20px;
+    /* เผื่อระยะขอบซ้ายขวาไว้เสมอ */
+    box-sizing: border-box;
+}
+
+.controls-wrapper .search-box {
+    max-width: 900px !important;
+    width: 100% !important;
+    /* เปลี่ยนจาก 130% เป็น 100% เพื่อไม่ให้จอล้นในบางหน้าจอ */
+    justify-self: center;
+}
+
+.controls-wrapper .sort-container {
+    margin: 0;
+    justify-self: end;
+}
+
+
+/* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
+
+@media (max-width: 768px) {
+    .controls-wrapper {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 15px;
+    }
+    .controls-wrapper .search-box {
+        width: 90% !important;
+        min-width: 0 !important;
+        max-width: 400px !important;
+    }
+    .controls-wrapper .sort-container {
+        justify-self: center;
+        width: 90%;
+    }
+    /* 🌟 เปลี่ยนจากเจาะจงชื่อไอดี เป็นการสั่ง input ทุกตัวในกล่องค้นหาแทน */
+    .controls-wrapper .search-box input {
+        padding: 10px 15px 10px 40px !important;
+        font-size: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .controls-wrapper .search-icon {
+        left: 12px !important;
+        font-size: 16px !important;
+    }
+    .controls-wrapper .clear-search {
+        right: 12px !important;
+        font-size: 14px !important;
+    }
+}
+
+
 /* ========================== */
 
 

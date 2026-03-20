@@ -879,9 +879,6 @@ body.dark-mode .show-all:hover {
     }
 }
 
-
-/* 🌟 ก๊อปโค้ดช่องค้นหามาวางต่อท้ายตรงนี้เลยครับ 👇 */
-
 .controls-wrapper {
     padding: 0 20px !important;
     width: 100%;
@@ -893,10 +890,13 @@ body.dark-mode .show-all:hover {
 }
 
 .controls-wrapper .search-box {
-    width: 100% !important;
+    width: 85% !important;
+    /* 🌟 เปลี่ยนจาก 100% เป็น 85% หรือ 90% (ยิ่งเลขนิด ช่องยิ่งสั้นลง) */
     min-width: 0 !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    max-width: 350px !important;
+    /* 🌟 บังคับไม่ให้ยาวเกิน 350px บนจอมือถือ */
+    margin: 0 auto !important;
+    /* สั่งให้อยู่กึ่งกลาง */
     box-sizing: border-box;
 }
 

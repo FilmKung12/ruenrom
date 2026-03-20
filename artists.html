@@ -8,56 +8,53 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* ========================================= */
-        /* เล็กเอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) */
+        /* เลย์เอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) */
         /* ========================================= */
         
         .controls-wrapper {
             display: grid;
-            /* ปรับสัดส่วน: ซ้าย 1 ส่วน | กลาง(ค้นหา) 2 ส่วน | ขวา(จัดเรียง) 1 ส่วน */
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr auto 1fr;
+            /* แบ่ง 3 ส่วน: ซ้าย(ว่าง) กลาง(ค้นหา) ขวา(จัดเรียง) */
+            gap: 15px;
             align-items: center;
             max-width: 1000px;
-            /* ความกว้างสูงสุดเท่ากับหัวข้อและเนื้อหา */
             margin: 0 auto 40px auto;
             padding: 0 20px;
-            box-sizing: border-box;
+            /* 🌟 เพิ่มระยะขอบซ้ายขวา ไม่ให้เนื้อหาติดขอบจอเกินไป */
         }
         
         .controls-wrapper .search-box {
-            width: 100%;
-            max-width: 600px;
-            /* 🌟 ปรับความยาวช่องค้นหาตรงนี้ (500px-700px กำลังสวย) */
+            width: 200%;
+            /* 🌟 แก้จาก 200% เป็น 100% เพื่อให้อยู่ในกรอบ */
+            min-width: 250px;
+            /* 🌟 ลดจาก 300px ลงมาหน่อย เผื่อมือถือจอเล็ก */
+            max-width: 700px;
             margin: 0;
             justify-self: center;
-            /* จัดให้อยู่ตรงกลางของ Grid ช่องกลาง */
         }
         
         .controls-wrapper .sort-container {
             margin: 0;
             justify-self: end;
-            /* ดันปุ่มจัดเรียงไปชิดขวาสุดให้ตรงขอบเนื้อหา */
         }
-        /* 📱 สำหรับหน้าจอมือถือและแท็บเล็ต */
+        /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
         
         @media (max-width: 768px) {
             .controls-wrapper {
                 grid-template-columns: 1fr;
-                /* เปลี่ยนเป็นแถวเดียวเสาเดียว */
+                /* เปลี่ยนเป็น 1 แถวเรียงซ้อนกัน */
                 justify-items: center;
-                gap: 15px;
+                gap: 20px;
+                /* เพิ่มช่องว่างระหว่างกล่องค้นหากับปุ่มจัดเรียง */
             }
             .controls-wrapper .search-box {
-                max-width: 100%;
-                /* เต็มจอในมือถือ */
+                width: 100%;
+                /* 🌟 สั่งให้กล่องค้นหากว้างเต็มพื้นที่ แต่ไม่ล้นเพราะมี padding กันไว้แล้ว */
+                min-width: 100%;
+                /* 🌟 ล้างค่า min-width เดิมทิ้ง ป้องกันการดันขอบจอ */
             }
             .controls-wrapper .sort-container {
                 justify-self: center;
-                /* จัดกลางในมือถือ */
-            }
-            /* ซ่อน div ว่างในมือถือ */
-            .controls-wrapper div:first-child {
-                display: none;
             }
         }
     </style>

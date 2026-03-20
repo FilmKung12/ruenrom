@@ -34,23 +34,45 @@
             justify-self: end;
         }
         /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
+        /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
         
         @media (max-width: 768px) {
             .controls-wrapper {
                 grid-template-columns: 1fr;
                 /* เปลี่ยนเป็น 1 แถวเรียงซ้อนกัน */
                 justify-items: center;
-                gap: 20px;
-                /* เพิ่มช่องว่างระหว่างกล่องค้นหากับปุ่มจัดเรียง */
+                gap: 15px;
+                /* ลดระยะห่างระหว่างช่องค้นหากับปุ่มจัดเรียงลงนิดนึง */
             }
             .controls-wrapper .search-box {
-                width: 100%;
-                /* 🌟 สั่งให้กล่องค้นหากว้างเต็มพื้นที่ แต่ไม่ล้นเพราะมี padding กันไว้แล้ว */
-                min-width: 100%;
-                /* 🌟 ล้างค่า min-width เดิมทิ้ง ป้องกันการดันขอบจอ */
+                /* 🌟 ปรับความยาว (ความกว้างแนวนอน) ให้พอดีจอ */
+                width: 90% !important;
+                /* ให้กว้างแค่ 90% ของหน้าจอ จะได้มีขอบซ้ายขวา */
+                min-width: 0 !important;
+                max-width: 400px !important;
+                /* จำกัดความกว้างสูงสุดไว้ไม่ให้ยาวเกินไปบนแท็บเล็ต */
             }
             .controls-wrapper .sort-container {
                 justify-self: center;
+                width: 90%;
+                /* ให้ปุ่มจัดเรียงกว้างเท่าช่องค้นหา */
+            }
+            /* 🌟 ปรับขนาดของช่องพิมพ์ข้อความ (Input) ด้านใน */
+            #searchArtistInput {
+                padding: 10px 15px 10px 40px !important;
+                /* ลดความสูง (padding บน-ล่าง) ลง */
+                font-size: 14px !important;
+                /* ลดขนาดตัวอักษรลงนิดนึง */
+            }
+            /* ปรับตำแหน่งไอคอนแว่นขยายให้พอดีกับความสูงใหม่ */
+            .controls-wrapper .search-icon {
+                left: 12px !important;
+                font-size: 16px !important;
+            }
+            /* ปรับตำแหน่งปุ่มกากบาทให้พอดีกับความสูงใหม่ */
+            .controls-wrapper .clear-search {
+                right: 12px !important;
+                font-size: 14px !important;
             }
         }
     </style>

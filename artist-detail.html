@@ -412,19 +412,24 @@
                 const isLiked = likedSongs.some(likedSong => likedSong.title === song.title && likedSong.artist === song.artist);
                 const likeClass = isLiked ? 'action-btn liked' : 'action-btn';
 
-                // 🔥 ไฮไลท์การแก้ไข: ซ่อนชื่อเพลงและศิลปินไว้ใน data-title และ data-artist แทนการส่งผ่าน onclick
+                // ... (โค้ดก่อนหน้าในฟังก์ชัน renderSongs) ...
+
                 return `
-                    <div class="song-card">
-                        <div class="song-number">${i + 1}</div>
-                        <div class="song-title">${escapeHTML(song.title)}</div>
-                        <div class="song-artist">${escapeHTML(song.artist)}</div>
-                        
-                        <div class="song-actions">
-                            <button class="action-btn add-btn" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleOpenModal(this)" title="เพิ่มลงเพลย์ลิสต์">➕</button>
-                            <button class="${likeClass}" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleToggleLike(this)" title="ถูกใจ">❤</button>
-                        </div>
-                    </div>
-                `;
+            <div class="song-card">
+                <div class="song-number">${i + 1}</div>
+                
+                <div class="song-title">${escapeHTML(song.title)}</div>
+                
+                <div class="song-artist">${escapeHTML(song.artist)}</div>
+                
+                <div class="song-actions">
+                    <button class="action-btn add-btn" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleOpenModal(this)" title="เพิ่มลงเพลย์ลิสต์">➕</button>
+                    <button class="${likeClass}" data-title="${escapeHTML(song.title)}" data-artist="${escapeHTML(song.artist)}" onclick="handleToggleLike(this)" title="ถูกใจ">❤</button>
+                </div>
+            </div>
+        `;
+
+                // ... (โค้ดหลังจากนี้ในฟังก์ชัน renderSongs เหมือนเดิม) ...
             }).join('');
         }
 

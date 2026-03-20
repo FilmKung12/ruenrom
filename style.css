@@ -133,8 +133,10 @@ a {
 
 .search-input {
     position: relative;
-    width: 520px;
-    max-width: 90%;
+    width: 100%;
+    /* ให้ช่องค้นหาขยายเต็มพื้นที่ */
+    max-width: 500px;
+    /* ปรับความกว้างสูงสุด (ลองปรับเลข 800px - 1000px ดูเพื่อให้ขอบซ้าย-ขวาตรงกับตารางด้านล่างพอดี) */
 }
 
 .search-input input {

@@ -965,29 +965,3 @@ body.dark-mode .show-all:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
-@media (max-width: 768px) {
-    /* ... โค้ดมือถืออื่นๆ ที่คุณมีอยู่แล้ว ... */
-    /* ========================================= */
-    /* 🌟 จัดการช่องค้นหาให้พอดีจอมือถือ 100% */
-    /* ========================================= */
-    .controls-wrapper {
-        padding: 0 15px !important;
-        /* เว้นขอบซ้ายขวานิดนึง จะได้ไม่ติดขอบจอเกินไป */
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    .controls-wrapper .search-box {
-        width: 100% !important;
-        min-width: 0 !important;
-        /* 👈 สำคัญมาก: ล้างค่าขั้นต่ำทิ้งไปเลย มันจะได้หดได้สุด */
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        box-sizing: border-box !important;
-    }
-    .search-box input {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        /* บังคับให้ขอบช่องพิมพ์ไม่ดันทะลุกล่อง */
-    }
-}

@@ -779,15 +779,32 @@ body.dark-mode .show-all:hover {
         border-radius: 10px;
         gap: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        /* เพิ่มเงาให้เมนูมือถือดูชัดขึ้น */
         z-index: 100;
     }
     .menu.show {
         display: flex;
     }
+    /* 🌟 แก้ไข 1: เพิ่มสีตัวหนังสือเมนูให้มองเห็นบนพื้นขาว */
+    .menu a {
+        color: #4b2e2e;
+        padding: 5px 0;
+    }
+    .menu a.active {
+        color: #7b4f2c;
+        border-bottom: 2px solid #7b4f2c;
+        display: inline-block;
+        width: fit-content;
+    }
     body.dark-mode .menu {
         background: #1A110C;
-        /* รองรับ Dark mode สำหรับเมนูมือถือ */
+    }
+    /* สีเมนูตอนเปิด Dark Mode บนมือถือ */
+    body.dark-mode .menu a {
+        color: #EADBC8;
+    }
+    body.dark-mode .menu a.active {
+        color: #D4A373;
+        border-color: #D4A373;
     }
     .menu-btn {
         display: block;
@@ -830,6 +847,41 @@ body.dark-mode .show-all:hover {
         width: 40px;
         height: 40px;
         font-size: 20px;
+    }
+    /* 🌟 แก้ไข 2: จัดการลิสต์เพลงที่เบียดกัน (หน้าจอแตก) */
+    .song-header {
+        display: none;
+        /* ซ่อนหัวตารางบนมือถือ */
+    }
+    .song-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 12px 0;
+    }
+    .song-card>div:nth-child(1),
+    .song-number {
+        width: 40px;
+        text-align: left;
+        font-size: 15px;
+    }
+    .song-card>div:nth-child(2),
+    .song-title {
+        width: calc(100% - 40px);
+        /* พื้นที่ที่เหลือเป็นของชื่อเพลง */
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.4;
+    }
+    .song-card>div:nth-child(3),
+    .song-artist {
+        width: 100%;
+        margin-left: 40px;
+        /* ดันให้ตรงกับชื่อเพลง */
+        margin-top: 4px;
+        font-size: 14px;
+        text-align: left;
+        color: #888;
     }
 }
 

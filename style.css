@@ -787,26 +787,33 @@ body.dark-mode .show-all:hover {
 
 /* ========================================= */
 
-.controls-wrapper {
-    max-width: 1200px !important;
-    display: grid;
-    grid-template-columns: 0.5fr auto 0.5fr;
-    gap: 20px;
-    padding: 0 20px;
-    box-sizing: border-box;
-    margin: 0 auto 40px auto;
-    /* เพิ่ม margin ให้กล่องอยู่ตรงกลาง */
-}
 
-.controls-wrapper .search-box {
-    max-width: 900px !important;
-    width: 100% !important;
-    justify-self: center;
-}
+/* 🌟 เลย์เอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) สำหรับจอคอมพิวเตอร์ */
 
-.controls-wrapper .sort-container {
-    margin: 0;
-    justify-self: end;
+
+/* ========================================= */
+
+@media (min-width: 769px) {
+    .controls-wrapper {
+        display: flex !important;
+        justify-content: space-between !important;
+        /* ดันค้นหาไปซ้าย จัดเรียงไปขวา */
+        align-items: center;
+        /* จัดให้ความสูงอยู่กึ่งกลางบรรทัดเดียวกัน */
+        max-width: 1100px;
+        /* 💡 ปรับเลขนี้ให้ขอบซ้าย-ขวา ตรงกับขอบของกริดรูปภาพด้านล่างพอดี */
+        margin: 0 auto 40px auto;
+        padding: 0 20px;
+    }
+    .controls-wrapper .search-box {
+        width: 400px !important;
+        /* บนคอมให้ช่องค้นหายาวขึ้นนิดนึงจะได้พิมพ์สะดวก */
+        max-width: 100%;
+        margin: 0 !important;
+    }
+    .controls-wrapper .sort-container {
+        margin: 0 !important;
+    }
 }
 
 

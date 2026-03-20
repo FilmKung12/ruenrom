@@ -6,76 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ศิลปินทั้งหมด | Ruenrom</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ========================================= */
-        /* เลย์เอาต์ส่วนควบคุม (ค้นหา & จัดเรียง) */
-        /* ========================================= */
-        /* 1. ขยายกรอบรวมให้กว้างขึ้น เพื่อให้ช่องค้นหามีที่ยืดออกไปได้อีก */
-        
-        .controls-wrapper {
-            max-width: 1200px !important;
-            /* เพิ่มจาก 1000px เป็น 1200px */
-            display: grid;
-            grid-template-columns: 0.5fr auto 0.5fr;
-            /* ลดสัดส่วนพื้นที่ว่างข้างๆ ลง */
-            gap: 20px;
-        }
-        /* 2. เพิ่มความยาวของช่องค้นหา */
-        
-        .controls-wrapper .search-box {
-            /* 🌟 ปรับตัวเลขตรงนี้ได้เลยครับ ยิ่งเยอะยิ่งยาว */
-            max-width: 900px !important;
-            width: 130% !important;
-            justify-self: center;
-        }
-        
-        .controls-wrapper .sort-container {
-            margin: 0;
-            justify-self: end;
-        }
-        /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
-        /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
-        
-        @media (max-width: 768px) {
-            .controls-wrapper {
-                grid-template-columns: 1fr;
-                /* เปลี่ยนเป็น 1 แถวเรียงซ้อนกัน */
-                justify-items: center;
-                gap: 15px;
-                /* ลดระยะห่างระหว่างช่องค้นหากับปุ่มจัดเรียงลงนิดนึง */
-            }
-            .controls-wrapper .search-box {
-                /* 🌟 ปรับความยาว (ความกว้างแนวนอน) ให้พอดีจอ */
-                width: 90% !important;
-                /* ให้กว้างแค่ 90% ของหน้าจอ จะได้มีขอบซ้ายขวา */
-                min-width: 0 !important;
-                max-width: 400px !important;
-                /* จำกัดความกว้างสูงสุดไว้ไม่ให้ยาวเกินไปบนแท็บเล็ต */
-            }
-            .controls-wrapper .sort-container {
-                justify-self: center;
-                width: 90%;
-                /* ให้ปุ่มจัดเรียงกว้างเท่าช่องค้นหา */
-            }
-            /* 🌟 ปรับขนาดของช่องพิมพ์ข้อความ (Input) ด้านใน */
-            #searchArtistInput {
-                padding: 10px 15px 10px 40px !important;
-                /* ลดความสูง (padding บน-ล่าง) ลง */
-                font-size: 14px !important;
-                /* ลดขนาดตัวอักษรลงนิดนึง */
-            }
-            /* ปรับตำแหน่งไอคอนแว่นขยายให้พอดีกับความสูงใหม่ */
-            .controls-wrapper .search-icon {
-                left: 12px !important;
-                font-size: 16px !important;
-            }
-            /* ปรับตำแหน่งปุ่มกากบาทให้พอดีกับความสูงใหม่ */
-            .controls-wrapper .clear-search {
-                right: 12px !important;
-                font-size: 14px !important;
-            }
-        }
-    </style>
+
 </head>
 
 <body>
@@ -109,19 +40,20 @@
             <div></div>
 
             <form class="search-box" onsubmit="return false;">
-                <div class="search-input" style="position: relative; width: 100%;">
-                    <span class="search-icon" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #7B4F2C;">🔎</span>
-                    <input type="text" id="searchArtistInput" placeholder="ค้นหาชื่อศิลปิน..." autocomplete="off" style="width: 100%; padding: 12px 15px 12px 45px; border-radius: 25px; border: 1px solid #d6c4b0; background-color: #fdfaf7; color: #4A3728; font-size: 16px; outline: none; transition: 0.3s; box-sizing: border-box; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
-                    <span id="clearArtistSearch" class="clear-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #aaa; display: none;">✖</span>
+                <div class="search-input">
+                    <span class="search-icon">🔎</span>
+                    <input type="text" id="searchArtistInput" placeholder="ค้นหาชื่อศิลปิน..." autocomplete="off">
+                    <span id="clearArtistSearch" class="clear-search" style="display: none;">✖</span>
                 </div>
             </form>
 
             <div class="sort-container">
-                <select id="artistSortSelect" class="sort-select" onchange="applyArtistSort()" ...>
-    <option value="default">เรียงตามลำดับเดิม</option>
-    <option value="newest">เพิ่งเพิ่มล่าสุด ✨</option> <option value="name-asc">ชื่อศิลปิน (ก-ฮ, A-Z)</option>
-    <option value="name-desc">ชื่อศิลปิน (ฮ-ก, Z-A)</option>
-</select>
+                <select id="artistSortSelect" class="sort-select" onchange="applyArtistSort()">
+                    <option value="default">เรียงตามลำดับเดิม</option>
+                    <option value="newest">เพิ่งเพิ่มล่าสุด ✨</option>
+                    <option value="name-asc">ชื่อศิลปิน (ก-ฮ, A-Z)</option>
+                    <option value="name-desc">ชื่อศิลปิน (ฮ-ก, Z-A)</option>
+                </select>
             </div>
 
         </div>

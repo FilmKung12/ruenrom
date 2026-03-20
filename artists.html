@@ -19,13 +19,16 @@
             align-items: center;
             max-width: 1000px;
             margin: 0 auto 40px auto;
+            padding: 0 20px;
+            /* 🌟 เพิ่มระยะขอบซ้ายขวา ไม่ให้เนื้อหาติดขอบจอเกินไป */
         }
         
         .controls-wrapper .search-box {
-            width: 200%;
-            min-width: 300px;
+            width: 100%;
+            /* 🌟 แก้จาก 200% เป็น 100% เพื่อให้อยู่ในกรอบ */
+            min-width: 250px;
+            /* 🌟 ลดจาก 300px ลงมาหน่อย เผื่อมือถือจอเล็ก */
             max-width: 700px;
-            /* 👈 ตัวเลขนี้คือตัวจำกัดความกว้างครับ */
             margin: 0;
             justify-self: center;
         }
@@ -33,7 +36,6 @@
         .controls-wrapper .sort-container {
             margin: 0;
             justify-self: end;
-            /* ดันให้อยู่ชิดขวาสุดของคอลัมน์ขวา */
         }
         /* 📱 สำหรับหน้าจอมือถือ (ไอแพดและมือถือ) */
         
@@ -42,10 +44,17 @@
                 grid-template-columns: 1fr;
                 /* เปลี่ยนเป็น 1 แถวเรียงซ้อนกัน */
                 justify-items: center;
+                gap: 20px;
+                /* เพิ่มช่องว่างระหว่างกล่องค้นหากับปุ่มจัดเรียง */
+            }
+            .controls-wrapper .search-box {
+                width: 100%;
+                /* 🌟 สั่งให้กล่องค้นหากว้างเต็มพื้นที่ แต่ไม่ล้นเพราะมี padding กันไว้แล้ว */
+                min-width: 100%;
+                /* 🌟 ล้างค่า min-width เดิมทิ้ง ป้องกันการดันขอบจอ */
             }
             .controls-wrapper .sort-container {
                 justify-self: center;
-                /* ในมือถือให้กล่องจัดเรียงมาอยู่ตรงกลางด้วย */
             }
         }
     </style>
@@ -57,16 +66,16 @@
         <a href="index.html" class="logo">Ruenrom 🎧</a>
 
         <nav id="menu" class="menu">
-            <a href="index.html">หน้าหลัก</a>
+            <a href="index.html" class="active">หน้าหลัก</a>
             <a href="songs.html">เพลง</a>
-            <a href="artists.html" class="active">ศิลปิน</a>
+            <a href="artists.html">ศิลปิน</a>
             <a href="likes.html">ถูกใจ</a>
             <a href="playlists.html">เพลย์ลิสต์</a>
         </nav>
 
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <button id="darkModeToggle" class="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
-            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
+        <div class="nav-actions">
+            <button class="dark-mode-btn" onclick="toggleDarkMode()">🌙</button>
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
 

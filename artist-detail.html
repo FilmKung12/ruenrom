@@ -162,31 +162,62 @@
         /* --- 📱 สไตล์สำหรับมือถือ --- */
         
         @media (max-width: 600px) {
+            /* 🌟 ปรับให้ใช้ Grid จัดเรียงปุ่มไม่ให้ทับกับตัวหนังสือแบบเดียวกับหน้าหลัก */
             .song-card {
-                align-items: flex-start;
+                display: grid !important;
+                grid-template-columns: 40px 1fr auto !important;
+                grid-template-rows: auto auto !important;
+                align-items: center;
+                padding: 12px 15px;
+            }
+            .song-number {
+                grid-column: 1 / 2;
+                grid-row: 1 / 3;
+                font-size: 15px;
+                margin: 0;
             }
             .song-title {
-                flex: 1 1 calc(100% - 100px);
-                font-size: 16px;
-                /* 🌟 เพิ่มการตัดคำด้วยจุดไข่ปลา สำหรับชื่อเพลง */
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                grid-column: 2 / 3;
+                grid-row: 1 / 2;
+                font-size: 15px !important;
+                margin: 0 !important;
+                padding-right: 10px;
+                text-align: left !important;
+                width: 100% !important;
+                /* 🌟 ปลดล็อกให้ชื่อเพลงขึ้นบรรทัดใหม่ได้ */
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                word-wrap: break-word !important;
+                line-height: 1.4 !important;
             }
             .song-artist {
-                flex: 1 1 100%;
-                width: 100%;
-                text-align: left;
-                margin-left: 45px;
-                margin-top: -5px;
-                margin-right: 0;
-                /* 🌟 เพิ่มการตัดคำด้วยจุดไข่ปลา สำหรับชื่อศิลปิน */
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+                font-size: 12px !important;
+                color: #888;
+                margin: 0 !important;
+                text-align: left !important;
+                width: 100% !important;
+                /* 🌟 ปลดล็อกให้ชื่อศิลปินขึ้นบรรทัดใหม่ได้ */
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                word-wrap: break-word !important;
+                line-height: 1.4 !important;
             }
             .song-actions {
-                top: 15px;
+                grid-column: 3 / 4;
+                grid-row: 1 / 3;
+                position: static !important;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                margin-top: 0 !important;
+            }
+            .action-btn {
+                font-size: 20px !important;
+                padding: 4px;
             }
         }
         /* --- 🪟 ป๊อปอัป (Modal) สำหรับเลือกเพลย์ลิสต์ --- */

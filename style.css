@@ -837,19 +837,20 @@ body.dark-mode .show-all:hover {
         transform: translateY(-50%) !important;
         margin: 0 !important;
     }
-    /* 🌟 บังคับตอกหมุดปุ่ม 3 ขีด ให้อยู่ขวาสุดเสมอ */
-    .menu-btn {
-        display: block !important;
+    .navbar>div {
         position: absolute !important;
         right: 20px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
+        display: flex !important;
+        align-items: center;
+        gap: 15px !important;
+    }
+    .menu-btn {
+        display: block !important;
+        position: static !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: transparent;
-        border: none;
-        color: white;
-        /* เปลี่ยนสีไอคอนให้เป็นสีขาว (ถ้าใช้ไอคอนแบบ text) */
     }
     /* --- 2. โค้ดจัดการเมนู --- */
     .menu {
@@ -998,10 +999,6 @@ body.dark-mode .show-all:hover {
         text-align: left !important;
         width: 100% !important;
         font-weight: bold;
-        /* 🌟 ปลดล็อกให้ชื่อเพลงขึ้นบรรทัดใหม่ได้ */
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        line-height: 1.4 !important;
     }
     .song-artist,
     .song-card>div:nth-child(3) {
@@ -1012,10 +1009,6 @@ body.dark-mode .show-all:hover {
         margin: 0 !important;
         text-align: left !important;
         width: 100% !important;
-        /* 🌟 ปลดล็อกให้ชื่อศิลปินขึ้นบรรทัดใหม่ได้ */
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        line-height: 1.4 !important;
     }
     .song-actions {
         grid-column: 3 / 4;

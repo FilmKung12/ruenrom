@@ -1017,6 +1017,17 @@ body.dark-mode .show-all:hover {
         font-size: 20px !important;
         padding: 4px;
     }
+    /* ปลดล็อกให้ชื่อเพลงและศิลปินขึ้นบรรทัดใหม่ได้ (เอา ... ออก) */
+    .song-title,
+    .song-card>div:nth-child(2),
+    .song-artist,
+    .song-card>div:nth-child(3) {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-wrap: break-word !important;
+        line-height: 1.4 !important;
+    }
 }
 
 @media (max-width: 480px) {

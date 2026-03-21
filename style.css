@@ -967,28 +967,53 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 🌟 แก้ไขหน้าเพลงโดนบีบ ให้ขยายกว้างเต็มจอ */
+    /* 🌟 ปรับแต่งหน้าเพลงใหม่ล่าสุดให้พอดีกับมือถือ */
     /* ========================================= */
     
-    /* 1. ขยายกล่องพื้นหลังที่ครอบลิสต์เพลงทั้งหมดให้เต็มจอ */
-    .songs-container,
-    .song-list-container,
-    .music-list {
+    /* 1. คอนเทนเนอร์หลัก (พื้นหลังที่ครอบเพลงทั้งหมด) */
+    .songs-container {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 0 15px !important; /* เว้นขอบซ้ายขวา 15px */
+        padding: 15px !important; /* เว้นขอบซ้าย-ขวาให้มีพื้นที่หายใจ */
         box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important; /* เรียงกล่องเพลงจากบนลงล่าง */
+        align-items: center !important; /* จัดให้อยู่กึ่งกลางจอ */
     }
 
-    /* 2. ขยายกล่องของแต่ละเพลง (เหตุผล, เหนื่อยเกินไป ฯลฯ) ให้กว้างเต็มพื้นที่ */
-    .song-card,
-    .song-item,
-    .track-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+    /* 2. กล่องเพลงแต่ละเพลง (เช่น เหตุผล, เหนื่อยเกินไป) */
+    .song-card {
+        width: 100% !important; /* กว้างเต็มพื้นที่คอนเทนเนอร์ */
+        background: #ffffff !important; /* พื้นหลังสีขาว */
+        border: 1px solid #eadbc8 !important; /* ขอบสีน้ำตาลอ่อนให้เข้าธีม */
+        border-radius: 14px !important; /* มุมโค้งมนให้ดูละมุนขึ้น */
+        padding: 18px 15px !important; /* เพิ่มพื้นที่ด้านในบน-ล่าง ให้กล่องไม่ดูเตี้ยไป */
+        margin-bottom: 15px !important; /* ระยะห่างระหว่างกล่องเพลงแต่ละกล่อง */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04) !important; /* เงาบางๆ ให้การ์ดดูลอยขึ้นมา */
         box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important; /* จัดข้อความให้อยู่กึ่งกลาง */
+        text-align: center !important;
+    }
+
+    /* 3. ปรับขนาดตัวหนังสือชื่อเพลง (สมมติว่าใช้แท็ก h3, h4 หรือ strong) */
+    .song-card h3, 
+    .song-card h4,
+    .song-card strong {
+        margin: 0 0 5px 0 !important; /* ดันชื่อศิลปินลงมานิดนึง */
+        font-size: 16px !important;
+        color: #4b2e2e !important; /* สีน้ำตาลเข้ม */
+        font-weight: bold !important;
+    }
+
+    /* 4. ปรับขนาดตัวหนังสือชื่อศิลปิน (สมมติว่าใช้แท็ก p หรือ span) */
+    .song-card p,
+    .song-card span {
+        margin: 0 !important;
+        font-size: 14px !important;
+        color: #888888 !important; /* สีเทาให้ดูเป็นตัวรอง */
     }
     
     /* ========================================= */

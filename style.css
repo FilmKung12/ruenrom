@@ -971,14 +971,16 @@ body.dark-mode .show-all:hover {
     /* ========================================= */
     
     /* ========================================= */
-    /* 1. คอนเทนเนอร์หลัก (ลดขอบจอซ้ายขวา เพื่อให้กล่องเพลงกว้างขึ้น) */
+    /* 1. คอนเทนเนอร์หลัก (ปรับขยายซ้ายขวาให้สุด) */
     /* ========================================= */
     .songs-container {
         width: 100% !important;
         max-width: 100% !important;
         
-        /* 🌟 แก้ไขบรรทัดนี้: เว้นขอบบน-ล่าง 15px แต่เว้นขอบซ้าย-ขวาแค่ 8px (กล่องจะกว้างเกือบชิดขอบจอ) */
-        padding: 15px 8px !important; 
+        /* 🌟 ตรงนี้คือหัวใจสำคัญครับ! 
+           15px คือขอบบนล่าง 
+           5px คือขอบซ้ายขวา (เหลือน้อยมาก กล่องจะกว้างสุดๆ) */
+        padding: 15px 5px !important; 
         
         box-sizing: border-box !important;
         display: flex !important;
@@ -987,16 +989,16 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 2. กล่องเพลงแต่ละเพลง (ขยายเต็ม 100% ของพื้นที่ใหม่) */
+    /* 2. กล่องเพลงแต่ละเพลง (กว้างเต็ม 100% ตามขอบที่ขยาย) */
     /* ========================================= */
     .song-card {
-        width: 100% !important; /* กว้างเต็มพื้นที่คอนเทนเนอร์ที่ขยายแล้ว */
+        width: 100% !important; 
         max-width: 100% !important;
         background: #ffffff !important;
         border: 1px solid #eadbc8 !important;
         border-radius: 14px !important;
-        padding: 18px 15px !important; /* พื้นที่ด้านในกล่องให้อ่านง่าย */
-        margin-bottom: 12px !important; /* ระยะห่างแต่ละกล่องเพลง */
+        padding: 18px 15px !important; 
+        margin-bottom: 12px !important;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04) !important;
         box-sizing: border-box !important;
         display: flex !important;

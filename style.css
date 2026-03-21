@@ -990,7 +990,7 @@ body.dark-mode .show-all:hover {
         margin-right: auto !important;
         box-sizing: border-box !important;
     }
-
+    
     /* ========================================= */
     /* 6. แต่งหน้าตาการ์ดดูทั้งหมด (ใบที่ 6) ให้ความสูงตรงกับการ์ดศิลปิน */
     /* ========================================= */
@@ -1030,38 +1030,6 @@ body.dark-mode .show-all:hover {
     
     /* ซ่อนปุ่มวงกลมสีน้ำตาล "ดูทั้งหมด" แบบเก่าที่ลอยทับซ้อน */
     .view-all-circle-wrapper { display: none !important; }
-
-    /* ========================================= */
-    /* 🌟 เก็บงานหน้า Index (หมวดศิลปินอิสระ) */
-    /* ========================================= */
-    
-    /* 1. ลดความสูงของการ์ดศิลปินให้พอดี (ไม่เหลือขอบขาวด้านล่าง) */
-    #artists.artist-container .artist-card {
-        height: 175px !important; /* ปรับตัวเลขนี้ให้เท่ากับที่คุณใช้ในหน้า Artists ได้เลยครับ */
-        justify-content: flex-start !important;
-    }
-
-    /* 2. จัดการการ์ด "ดูทั้งหมด" (ใบสุดท้าย) ให้ปุ่มและข้อความอยู่กึ่งกลางพอดี */
-    #artists.artist-container .artist-card:last-child {
-        justify-content: center !important; /* ดันเนื้อหาให้อยู่ตรงกลางแนวตั้ง */
-    }
-
-    /* 3. ปรับตำแหน่งปุ่มเลื่อนขึ้นบน (ลูกศร) ไม่ให้เกะกะการ์ด */
-    .scroll-to-top {
-        bottom: 20px !important;
-        right: 15px !important;
-        z-index: 999 !important; /* ดันให้อยู่บนสุดจะได้ไม่จมไปใต้กรอบอื่น */
-    }
-
-    /* 4. จัดระเบียบหัวข้อ: ซ่อนคำว่า "แสดงทั้งหมด >" ด้านบนขวา 
-       (เพราะเรามีการ์ด "ดูทั้งหมด" ใบสุดท้ายแล้ว หน้าจอจะได้ดูคลีนๆ ไม่ซ้ำซ้อนครับ) */
-    .category-header .show-all {
-        display: none !important;
-    }
-    
-    .category-header {
-        margin-bottom: 10px !important;
-    }
 }
 
 /* ========================================= */

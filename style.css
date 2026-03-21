@@ -1058,26 +1058,20 @@ body.dark-mode .show-all:hover {
 
 
 /* 2. ให้โผล่มา "เฉพาะในจอมือถือ" เท่านั้น */
-
 @media (max-width: 768px) {
     .view-all-card {
         display: flex !important;
-        /* เปิดใช้งาน !important */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         background: #fdfaf5 !important;
-        /* สีพื้นหลังอ่อนๆ */
         border: 2px dashed #d4a373 !important;
-        /* ขอบเส้นประ */
         border-radius: 12px;
         text-decoration: none;
         aspect-ratio: 1 / 1.2;
-        /* สัดส่วนให้เท่ารูปศิลปิน */
         transition: transform 0.2s;
         cursor: pointer;
     }
-    /* วงกลมลูกศร */
     .view-all-card .circle {
         width: 50px;
         height: 50px;
@@ -1090,7 +1084,6 @@ body.dark-mode .show-all:hover {
         font-size: 24px;
         margin-bottom: 12px;
     }
-    /* ตัวหนังสือ */
     .view-all-card .text {
         color: #7b4f2c;
         font-weight: bold;
@@ -1100,43 +1093,61 @@ body.dark-mode .show-all:hover {
         transform: scale(1.05);
         background: #eadbc8 !important;
     }
-    /* ================= ======================= */
-    /* 🌟 จัดการรูปศิลปินหมวดอิสระให้พอดีจอมือถือ */
+
     /* ========================================= */
-    /* 1. จัดการตัว container (div#artists) ให้เว้นขอบนิดนึง */
+    /* 🌟 จัดการรูปและกรอบการ์ดศิลปินให้เท่ากันเป๊ะ */
+    /* ========================================= */
+    
+    /* 1. จัดการตัว container ให้เป็น Grid 2 คอลัมน์ */
     #artists.artist-container {
         padding: 0 15px !important;
-        /* เว้นขอบซ้ายขวา 15px */
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        /* บังคับ 2 คอลัมน์ */
         gap: 20px !important;
-        /* ระยะห่างระหว่างภาพ */
         box-sizing: border-box !important;
         width: 100% !important;
     }
-    /* 2. จัดการกล่องรูปภาพ (.artist-card) ให้ยืดหดตามตาราง */
+
+    /* 🌟 2. บังคับ "กรอบการ์ด" ให้สูงเท่ากันทุกใบ (เพิ่ม height: 220px เข้ามา) */
     #artists.artist-container .artist-card {
         width: 100% !important;
-        /* กว้างสุดตามตาราง */
         max-width: 100% !important;
         box-sizing: border-box !important;
         margin: 0 !important;
-        /* ล้าง margin ที่อาจจะดันออก */
+        background: #fff !important; 
+        padding: 15px !important;
+        border-radius: 16px !important; 
+        border: 1px solid #eadbc8 !important; 
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        height: 220px !important; /* <-- ตัวนี้คือพระเอกที่จะล็อกให้กรอบสูงเท่ากัน */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
     }
-    /* 🌟 จัดการรูปศิลปินในมือถือให้ขนาดเท่ากันเป๊ะ ไม่เบี้ยว */
+
+    /* 🌟 3. จัดการ "รูปภาพ" ให้เป็นจัตุรัสเป๊ะ (อันนี้คุณทำถูกแล้ว) */
     #artists.artist-container .artist-card img {
         width: 100% !important;
-        /* บังคับกว้างเต็มกล่องที่แบ่งไว้ 2 คอลัมน์ */
         aspect-ratio: 1 / 1 !important;
-        /* ล็อกสัดส่วนให้เป็น "สี่เหลี่ยมจัตุรัส" เสมอ */
         object-fit: cover !important;
-        /* ถ้าภาพต้นฉบับยาวไป ให้ซูมและตัดส่วนเกินออก (ภาพจะไม่ถูกบีบให้ผอม/อ้วน) */
         border-radius: 12px !important;
-        /* ความโค้งของมุมรูป (ปรับลดเพิ่มได้ เช่น 50% ถ้าอยากได้รูปวงกลม) */
         display: block !important;
         box-sizing: border-box !important;
         margin: 0 auto 10px auto !important;
-        /* จัดให้อยู่ตรงกลาง และเว้นระยะห่างจากชื่อด้านล่าง */
+    }
+
+    /* 🌟 4. จัดการ "ชื่อศิลปิน" ป้องกันชื่อยาวๆ ไปดันให้การ์ดยืด (เพิ่มมาใหม่) */
+    #artists.artist-container .artist-card p {
+        margin: 0 !important;
+        font-size: 15px !important;
+        color: #4b2e2e !important;
+        font-weight: bold !important;
+        width: 100% !important;
+        text-align: center !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important; /* ตัดข้อความถ้าเกิน 2 บรรทัด */
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 }

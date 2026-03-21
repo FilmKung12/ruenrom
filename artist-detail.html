@@ -159,6 +159,13 @@
         .action-btn.add-btn {
             color: #7B4F2C;
         }
+        /* ========================================= */
+        /* 🌟 1. วางโค้ดนี้ตรงนี้! เพื่อซ่อน 3 ขีดบนหน้าจอคอม */
+        /* ========================================= */
+        
+        .menu-btn {
+            display: none !important;
+        }
         /* --- 📱 สไตล์สำหรับมือถือ --- */
         
         @media (max-width: 600px) {
@@ -227,12 +234,19 @@
         }
         
         .menu-btn {
+            display: block !important;
+            /* สั่งให้กลับมาโชว์บนมือถือ */
             position: absolute !important;
             right: 20px !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
-            display: block !important;
             margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            font-size: 24px !important;
+            color: #4b2e2e !important;
+            /* ให้สีกลืนไปกับแถบ Navbar */
         }
         /* --- 🪟 ป๊อปอัป (Modal) สำหรับเลือกเพลย์ลิสต์ --- */
         

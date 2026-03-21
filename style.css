@@ -1027,3 +1027,56 @@ body.dark-mode .show-all:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+
+/* ========================================= */
+
+
+/* 🌟 การ์ดดูทั้งหมด (ใบที่ 6) */
+
+
+/* ========================================= */
+
+
+/* 1. ซ่อนไว้ก่อนเมื่อเปิดบนหน้าจอคอมพิวเตอร์ */
+
+.view-all-card {
+    display: none;
+}
+
+
+/* 2. ให้ปุ่มโผล่มา "เฉพาะในจอมือถือ" เพื่อเติมช่องว่าง */
+
+@media (max-width: 768px) {
+    .view-all-card {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #fdfaf5 !important;
+        /* สีพื้นหลังอ่อนๆ ให้ดูเป็นปุ่ม */
+        border: 2px dashed #d4a373 !important;
+        /* ขอบเส้นประสีน้ำตาล */
+        border-radius: 12px;
+        text-decoration: none;
+        aspect-ratio: 1 / 1.2;
+        /* บังคับสัดส่วนให้พอๆ กับรูปศิลปิน */
+    }
+    .view-all-card .circle {
+        width: 50px;
+        height: 50px;
+        background: #7b4f2c;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+    .view-all-card .text {
+        color: #7b4f2c;
+        font-weight: bold;
+        font-size: 15px;
+    }
+}

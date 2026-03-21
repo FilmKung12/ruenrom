@@ -824,9 +824,9 @@ body.dark-mode .show-all:hover {
         padding: 0 !important;
     }
     
-    /* 🌟 ซ่อนไอคอนโลก/ไอคอนแปลกๆ หน้าชื่อเมนู */
-    .menu a::before { content: none !important; display: none !important; }
-    .menu a span.nav-icon { display: none !important; }
+    /* 🌟 จัดการลบไอคอนทุกรูปแบบหน้าชื่อเมนู (ดักจับให้ครอบคลุม) */
+    .menu a::before, .menu a::after { content: none !important; display: none !important; }
+    .menu a span.nav-icon, .menu a img, .menu a i { display: none !important; }
 
     /* ========================================= */
     /* 2. จัดการเมนูสีขาวตอนกางออก */
@@ -863,14 +863,14 @@ body.dark-mode .show-all:hover {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        padding: 0 20px !important;
+        padding: 0 15px !important; /* ลด padding ลงนิดนึงให้ตรงกับเนื้อหา */
         width: 100% !important;
         box-sizing: border-box !important;
         margin-bottom: 15px !important;
-        margin-top: 15px !important; /* เว้นระยะด้านบนนิดนึง */
+        margin-top: 15px !important;
     }
     .artist-header .title, .category-header h2 {
-        font-size: 1.2rem !important; /* ปรับขนาดฟอนต์ให้พอดี */
+        font-size: 1.2rem !important;
         margin: 0 !important;
         color: #4A3728 !important;
     }
@@ -888,14 +888,14 @@ body.dark-mode .show-all:hover {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 15px !important;
-        padding: 0 20px 20px 20px !important;
+        gap: 12px !important;
+        padding: 0 15px 20px 15px !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
     .search-box, .sort-container, .sort-box {
         width: 100% !important;
-        max-width: 320px !important;
+        max-width: 100% !important; /* ให้กว้างเต็มพื้นที่ที่เหลือ */
         margin: 0 !important;
         box-sizing: border-box !important;
     }
@@ -905,55 +905,58 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือให้สวยเป๊ะ (แก้ปัญหาความสูง/รูปเบี้ยว) */
+    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือ ให้กว้างขึ้น รูปใหญ่ขึ้น มีพื้นที่หายใจ */
     /* ========================================= */
-    #artists.artist-container, .artist-container {
+    #artists.artist-container, .artist-container, .artists-list-grid {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important; /* ระยะห่างระหว่างการ์ด */
-        padding: 0 15px !important; 
+        gap: 10px !important; /* 🌟 ลดจาก 15px เป็น 10px เพื่อให้การ์ดกว้างขึ้น */
+        padding: 0 10px !important; /* 🌟 ลดขอบจอจาก 15px เป็น 10px ขยายพื้นที่ซ้ายขวา */
         box-sizing: border-box !important;
         width: 100% !important;
+        margin: 0 !important;
     }
 
-    /* 🌟 บังคับความสูงคงที่ให้การ์ด */
-    #artists.artist-container .artist-card, .artist-card {
+    /* 🌟 บังคับการ์ด: ลดกรอบด้านใน เพื่อเบ่งรูปภาพให้ใหญ่ขึ้น */
+    #artists.artist-container .artist-card, .artist-card, .artists-list-grid .artist-card {
         background: #fff !important;
-        padding: 12px !important; /* ลด padding ให้รูปใหญ่ขึ้น */
-        border-radius: 16px !important;
-        border: 1px solid #eadbc8 !important; /* ใส่กรอบอ่อนๆ */
+        padding: 10px !important; /* 🌟 ลด padding ภายในเหลือ 10px รูปจะใหญ่เต็มตาขึ้น */
+        border-radius: 14px !important;
+        border: 1px solid #eadbc8 !important; 
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
+        justify-content: flex-start !important;
         text-align: center !important;
         text-decoration: none !important;
-        height: 220px !important; /* ล็อกความสูง */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+        height: 210px !important; /* 🌟 ปรับความสูงเล็กน้อยให้สมดุลกับความกว้าง */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04) !important;
         box-sizing: border-box !important;
         margin: 0 !important;
         width: 100% !important;
     }
 
     /* 🌟 ล็อกรูปให้เป็นจัตุรัสและขนาดเท่ากัน */
-    #artists.artist-container .artist-card img, .artist-card img {
+    #artists.artist-container .artist-card img, .artist-card img, .artists-list-grid .artist-card img {
         width: 100% !important;
         height: auto !important;
-        aspect-ratio: 1 / 1 !important; /* เป็นจัตุรัสเสมอ */
-        object-fit: cover !important; /* ไม่เบี้ยว ไม่ยืด */
-        border-radius: 12px !important;
+        aspect-ratio: 1 / 1 !important; 
+        object-fit: cover !important; 
+        border-radius: 10px !important; /* ลดความโค้งของรูปให้เข้ากับขอบบางๆ */
         display: block !important;
-        margin: 0 auto 10px auto !important;
+        margin: 0 auto 8px auto !important; /* ขยับชื่อศิลปินขึ้นมานิดนึง */
+        box-sizing: border-box !important;
     }
 
     /* 🌟 ตัดชื่อที่ยาวเกินไปให้เหลือ 2 บรรทัด */
-    #artists.artist-container .artist-card p, .artist-card h3, .artist-card p {
+    #artists.artist-container .artist-card p, .artist-card h3, .artist-card p, .artists-list-grid .artist-card p {
         margin: 0 !important;
-        font-size: 14px !important;
+        font-size: 14px !important; /* ปรับขนาดฟอนต์ให้สมส่วน */
         color: #4b2e2e !important;
         font-weight: bold !important;
         width: 100% !important;
         display: -webkit-box !important;
-        -webkit-line-clamp: 2 !important; /* ตัดข้อความ */
+        -webkit-line-clamp: 2 !important; 
         -webkit-box-orient: vertical !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -961,7 +964,7 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 6. แต่งหน้าตาการ์ดดูทั้งหมด (ใบที่ 6) */
+    /* 6. แต่งหน้าตาการ์ดดูทั้งหมด (ใบที่ 6) ให้ความสูงตรงกับการ์ดศิลปิน */
     /* ========================================= */
     .view-all-card {
         display: flex !important;
@@ -970,25 +973,25 @@ body.dark-mode .show-all:hover {
         align-items: center;
         background: #fdfaf5 !important;
         border: 2px dashed #d4a373 !important;
-        border-radius: 16px !important;
+        border-radius: 14px !important;
         text-decoration: none;
-        height: 220px !important; /* 🌟 ให้สูงเท่าการ์ดศิลปินเป๊ะ */
+        height: 210px !important; /* 🌟 ให้สูง 210px เท่าการ์ดศิลปินเป๊ะ */
         transition: transform 0.2s;
         cursor: pointer;
-        padding: 12px !important;
+        padding: 10px !important;
         box-sizing: border-box !important;
     }
     .view-all-card .circle {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         background: #7b4f2c;
         color: white;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 24px;
-        margin-bottom: 12px;
+        font-size: 20px;
+        margin-bottom: 10px;
     }
     .view-all-card .text {
         color: #7b4f2c;

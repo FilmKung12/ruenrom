@@ -972,25 +972,15 @@ body.dark-mode .show-all:hover {
     
     /* 1. คอนเทนเนอร์หลัก (พื้นหลังที่ครอบเพลงทั้งหมด) */
     .songs-container {
-        /* 🌟 ส่วนที่คุณสามารถปรับแต่งหน้าตาพื้นหลังได้ตามใจชอบ */
-        background-color: #fdfaf5 !important; /* 🎨 สีพื้นหลัง (ตอนนี้ตั้งเป็นสีครีมอ่อนๆ ให้เข้ากับธีม ถ้าไม่อยากให้มีสีเลย ให้แก้เป็น transparent) */
-        border-radius: 16px !important; /* 📐 ความโค้งมนของมุมกล่องใหญ่ (ถ้าไม่ชอบให้เอาบรรทัดนี้ออก) */
-        padding: 20px 15px !important; /* 📏 ระยะห่างด้านใน (เว้นขอบบน-ล่าง 20px, ซ้าย-ขวา 15px) */
-        margin-top: 15px !important; /* ↕️ ขยับกล่องลงมาจากหัวข้อด้านบน */
-        margin-bottom: 20px !important; /* ↕️ เว้นที่ว่างด้านล่างกล่อง */
-        
-        /* ใส่เงาบางๆ ให้กล่องใหญ่ดูมีมิติ (ถ้าไม่ชอบเงา ให้ลบบรรทัดล่างนี้ทิ้งได้ครับ) */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important; 
-
-        /* ========================================= */
-        /* 🔒 โค้ดส่วนโครงสร้าง (แนะนำให้คงไว้เหมือนเดิมครับ) */
-        width: 100% !important;
+        width: 150% !important;
         max-width: 100% !important;
+        padding: 15px !important; /* เว้นขอบซ้าย-ขวาให้มีพื้นที่หายใจ */
         box-sizing: border-box !important;
         display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
+        flex-direction: column !important; /* เรียงกล่องเพลงจากบนลงล่าง */
+        align-items: center !important; /* จัดให้อยู่กึ่งกลางจอ */
     }
+
     /* 2. กล่องเพลงแต่ละเพลง (เช่น เหตุผล, เหนื่อยเกินไป) */
     .song-card {
         width: 100% !important; /* กว้างเต็มพื้นที่คอนเทนเนอร์ */

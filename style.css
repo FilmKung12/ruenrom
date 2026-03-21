@@ -1124,14 +1124,19 @@ body.dark-mode .show-all:hover {
         margin: 0 !important;
         /* ล้าง margin ที่อาจจะดันออก */
     }
-    /* 3. บังคับ "รูปภาพ" ให้หดตามกล่อง */
+    /* 🌟 จัดการรูปศิลปินในมือถือให้ขนาดเท่ากันเป๊ะ ไม่เบี้ยว */
     #artists.artist-container .artist-card img {
         width: 100% !important;
-        /* บังคับกว้าง 100% ของกล่องครอบ */
-        height: auto !important;
-        /* รักษาอัตราส่วนภาพ */
-        max-width: 100% !important;
+        /* บังคับกว้างเต็มกล่องที่แบ่งไว้ 2 คอลัมน์ */
+        aspect-ratio: 1 / 1 !important;
+        /* ล็อกสัดส่วนให้เป็น "สี่เหลี่ยมจัตุรัส" เสมอ */
+        object-fit: cover !important;
+        /* ถ้าภาพต้นฉบับยาวไป ให้ซูมและตัดส่วนเกินออก (ภาพจะไม่ถูกบีบให้ผอม/อ้วน) */
+        border-radius: 12px !important;
+        /* ความโค้งของมุมรูป (ปรับลดเพิ่มได้ เช่น 50% ถ้าอยากได้รูปวงกลม) */
         display: block !important;
         box-sizing: border-box !important;
+        margin: 0 auto 10px auto !important;
+        /* จัดให้อยู่ตรงกลาง และเว้นระยะห่างจากชื่อด้านล่าง */
     }
 }

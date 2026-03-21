@@ -904,20 +904,22 @@ body.dark-mode .show-all:hover {
         box-sizing: border-box !important;
     }
 
-    /* ========================================= */
-    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือ ให้กว้างขึ้น รูปใหญ่ขึ้น มีพื้นที่หายใจ */
+   /* ========================================= */
+    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือ (ฉบับเพิ่มพื้นที่หายใจด้านล่าง) */
     /* ========================================= */
     #artists.artist-container, .artist-container, .artists-list-grid {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important; /* 🌟 ลดจาก 15px เป็น 10px เพื่อให้การ์ดกว้างขึ้น */
-        padding: 0 10px !important; /* 🌟 ลดขอบจอจาก 15px เป็น 10px ขยายพื้นที่ซ้ายขวา */
+        gap: 10px !important; 
+        padding: 0 10px !important; 
         box-sizing: border-box !important;
         width: 100% !important;
-        margin: 0 !important;
+        
+        /* 🌟 แก้ไขบรรทัดนี้: เพิ่ม margin-bottom จาก 0 เป็น 130px */
+        margin: 0 0 130px 0 !important; 
     }
 
-    /* 🌟 บังคับการ์ด: ลดกรอบด้านใน เพื่อเบ่งรูปภาพให้ใหญ่ขึ้น */
+    /* 🌟 ส่วนการ์ดศิลปิน (ทรงเดิมที่คุณพอใจ) */
     #artists.artist-container .artist-card, .artist-card, .artists-list-grid .artist-card {
         background: #fff !important;
         padding: 10px !important; 
@@ -929,32 +931,29 @@ body.dark-mode .show-all:hover {
         justify-content: flex-start !important;
         text-align: center !important;
         text-decoration: none !important;
-        
-        /* 👇 แก้แค่บรรทัดนี้บรรทัดเดียวครับ 👇 */
-        height: 100% !important; /* 🌟 เปลี่ยนจาก 210px เป็น 100% เพื่อให้กรอบพอดีกับเนื้อหา และสูงเท่ากันทุกใบในแถว */
-        
+        height: 100% !important; 
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04) !important;
         box-sizing: border-box !important;
         margin: 0 !important;
         width: 100% !important;
     }
 
-    /* 🌟 ล็อกรูปให้เป็นจัตุรัสและขนาดเท่ากัน */
+    /* 🌟 รูปภาพ (ทรงเดิม) */
     #artists.artist-container .artist-card img, .artist-card img, .artists-list-grid .artist-card img {
         width: 100% !important;
         height: auto !important;
         aspect-ratio: 1 / 1 !important; 
         object-fit: cover !important; 
-        border-radius: 10px !important; /* ลดความโค้งของรูปให้เข้ากับขอบบางๆ */
+        border-radius: 10px !important; 
         display: block !important;
-        margin: 0 auto 8px auto !important; /* ขยับชื่อศิลปินขึ้นมานิดนึง */
+        margin: 0 auto 8px auto !important; 
         box-sizing: border-box !important;
     }
 
-    /* 🌟 ตัดชื่อที่ยาวเกินไปให้เหลือ 2 บรรทัด */
+    /* 🌟 ชื่อศิลปิน (ทรงเดิม) */
     #artists.artist-container .artist-card p, .artist-card h3, .artist-card p, .artists-list-grid .artist-card p {
         margin: 0 !important;
-        font-size: 14px !important; /* ปรับขนาดฟอนต์ให้สมส่วน */
+        font-size: 14px !important; 
         color: #4b2e2e !important;
         font-weight: bold !important;
         width: 100% !important;

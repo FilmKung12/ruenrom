@@ -999,9 +999,11 @@ body.dark-mode .show-all:hover {
         color: #888888 !important; 
     }
     
-    /* --- 7. การ์ดดูทั้งหมด (ใบที่ 6) --- */
+    /* --- 7. การ์ดดูทั้งหมด --- */
     .view-all-card {
-        display: flex !important; /* โชว์บนมือถือ */
+        grid-column: 1 / -1 !important; /* 🌟 เพิ่มบรรทัดนี้: สั่งให้ควบ 2 คอลัมน์ มันจะตกลงมาอยู่ตรงกลางแถวพอดีเป๊ะ */
+        
+        display: flex !important; 
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -1009,8 +1011,8 @@ body.dark-mode .show-all:hover {
         border: 2px dashed #d4a373 !important;
         border-radius: 14px !important;
         text-decoration: none;
-        height: 100% !important; /* ให้สูงเท่าการ์ดอื่น */
-        min-height: 160px !important; /* ล็อกความสูงขั้นต่ำกันยุบ */
+        height: 100% !important; 
+        min-height: 160px !important; 
         transition: transform 0.2s;
         cursor: pointer;
         padding: 10px !important;

@@ -220,20 +220,6 @@
                 padding: 4px;
             }
         }
-        /* 🌟 บังคับตอกหมุดปุ่ม 3 ขีด ให้อยู่ขวาสุดของแถบสีน้ำตาลเสมอ */
-        
-        .navbar {
-            position: relative !important;
-        }
-        
-        .menu-btn {
-            position: absolute !important;
-            right: 20px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            display: block !important;
-            margin: 0 !important;
-        }
         /* --- 🪟 ป๊อปอัป (Modal) สำหรับเลือกเพลย์ลิสต์ --- */
         
         .modal-overlay {
@@ -298,6 +284,35 @@
         .no-playlist-msg {
             color: #777;
             margin: 20px 0;
+        }
+        /* ========================================= */
+        /* 🌟 สั่งซ่อนปุ่ม 3 ขีด เมื่อเปิดบนคอมพิวเตอร์ */
+        /* ========================================= */
+        
+        .menu-btn {
+            display: none !important;
+        }
+        /* ========================================= */
+        /* 🌟 สั่งให้ปุ่ม 3 ขีด กลับมาโชว์เฉพาะในโทรศัพท์ */
+        /* ========================================= */
+        
+        @media (max-width: 768px) {
+            .navbar {
+                position: relative !important;
+            }
+            .menu-btn {
+                display: block !important;
+                position: absolute !important;
+                right: 20px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                font-size: 24px !important;
+                color: #4A3728 !important;
+            }
         }
     </style>
 </head>

@@ -914,6 +914,31 @@ body.dark-mode .show-all:hover {
         /* 🌟 ล็อกความกว้างปุ่มจัดเรียงไว้ที่ 320px */
         box-sizing: border-box !important;
     }
+    /* ========================================= */
+    /* 🌟 จัดระเบียบหัวข้อ หมวดศิลปินอิสระ ไม่ให้ล้นจอ */
+    /* ========================================= */
+    .artist-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        /* ดันหัวข้อไปซ้าย ดันปุ่มไปขวา */
+        align-items: center !important;
+        padding: 0 20px !important;
+        /* 🌟 สำคัญมาก: เว้นระยะซ้ายขวา 20px ไม่ให้ทะลุจอ */
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-bottom: 15px !important;
+    }
+    /* ปรับขนาดตัวหนังสือให้พอดีกับจอมือถือ */
+    .artist-header .title {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+    /* ปรับปุ่ม แสดงทั้งหมด */
+    .artist-header .show-all {
+        font-size: 14px !important;
+        white-space: nowrap !important;
+        /* บังคับไม่ให้คำว่า 'แสดงทั้งหมด' โดนตัดขึ้นบรรทัดใหม่ */
+    }
 }
 
 

@@ -905,58 +905,59 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือ ให้กว้างขึ้น รูปใหญ่ขึ้น มีพื้นที่หายใจ */
+    /* 🎨 โค้ดสำหรับปรับแต่งหน้าตา "การ์ดศิลปิน" โดยเฉพาะ */
     /* ========================================= */
-    #artists.artist-container, .artist-container, .artists-list-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important; /* 🌟 ลดจาก 15px เป็น 10px เพื่อให้การ์ดกว้างขึ้น */
-        padding: 0 10px !important; /* 🌟 ลดขอบจอจาก 15px เป็น 10px ขยายพื้นที่ซ้ายขวา */
-        box-sizing: border-box !important;
-        width: 100% !important;
-        margin: 0 !important;
-    }
 
-    /* 🌟 บังคับการ์ด: ลดกรอบด้านใน เพื่อเบ่งรูปภาพให้ใหญ่ขึ้น */
-    #artists.artist-container .artist-card, .artist-card, .artists-list-grid .artist-card {
-        background: #fff !important;
-        padding: 10px !important; 
-        border-radius: 14px !important;
-        border: 1px solid #eadbc8 !important; 
+    /* 1. ปรับแต่งตัวกล่องการ์ด (กรอบสีขาว) */
+    #artists.artist-container .artist-card, 
+    .artist-card, 
+    .artists-list-grid .artist-card {
+        background: #ffffff !important; /* 🎨 สีพื้นหลังของการ์ด (ตอนนี้เป็นสีขาว) */
+        border: 1px solid #eadbc8 !important; /* 📏 เส้นขอบการ์ด (ความหนา 1px สีน้ำตาลอ่อน) เปลี่ยนเป็น 0px ถ้าไม่ต้องการเส้นขอบ */
+        border-radius: 16px !important; /* 📐 ความโค้งมนของมุมการ์ด (เลขยิ่งมาก มุมยิ่งโค้ง) */
+        padding: 10px !important; /* 🔲 ระยะห่างขอบด้านใน (ลดเลขลง รูปจะใหญ่ขึ้นชิดขอบมากขึ้น) */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important; /* ☁️ เงาของการ์ด (เปลี่ยน 0.06 เป็นเลขที่มากขึ้น เช่น 0.15 ถ้าอยากให้เงาเข้มขึ้น) */
+        
+        /* โครงสร้างพื้นฐาน (แนะนำให้คงไว้) */
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
         text-align: center !important;
         text-decoration: none !important;
-        
-        /* 👇 แก้แค่บรรทัดนี้บรรทัดเดียวครับ 👇 */
-        height: 100% !important; /* 🌟 เปลี่ยนจาก 210px เป็น 100% เพื่อให้กรอบพอดีกับเนื้อหา และสูงเท่ากันทุกใบในแถว */
-        
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04) !important;
+        height: 100% !important; /* ให้กรอบยืดพอดีกับรูปและข้อความ */
         box-sizing: border-box !important;
         margin: 0 !important;
         width: 100% !important;
     }
 
-    /* 🌟 ล็อกรูปให้เป็นจัตุรัสและขนาดเท่ากัน */
-    #artists.artist-container .artist-card img, .artist-card img, .artists-list-grid .artist-card img {
+    /* 2. ปรับแต่งรูปภาพศิลปินด้านใน */
+    #artists.artist-container .artist-card img, 
+    .artist-card img, 
+    .artists-list-grid .artist-card img {
+        border-radius: 12px !important; /* 📐 ความโค้งของมุมรูปภาพ (ควรน้อยกว่าความโค้งของการ์ดนิดนึง จะดูสวยครับ) */
+        margin: 0 auto 10px auto !important; /* ↕️ ระยะห่างระหว่างรูปภาพ กับ ชื่อศิลปินด้านล่าง (เลข 10px) */
+        
+        /* โครงสร้างรูป (บังคับเป็นจัตุรัส) */
         width: 100% !important;
         height: auto !important;
         aspect-ratio: 1 / 1 !important; 
         object-fit: cover !important; 
-        border-radius: 10px !important; /* ลดความโค้งของรูปให้เข้ากับขอบบางๆ */
         display: block !important;
-        margin: 0 auto 8px auto !important; /* ขยับชื่อศิลปินขึ้นมานิดนึง */
         box-sizing: border-box !important;
     }
 
-    /* 🌟 ตัดชื่อที่ยาวเกินไปให้เหลือ 2 บรรทัด */
-    #artists.artist-container .artist-card p, .artist-card h3, .artist-card p, .artists-list-grid .artist-card p {
+    /* 3. ปรับแต่งชื่อศิลปิน */
+    #artists.artist-container .artist-card p, 
+    .artist-card h3, 
+    .artist-card p, 
+    .artists-list-grid .artist-card p {
+        color: #4b2e2e !important; /* 🎨 สีตัวหนังสือชื่อศิลปิน (ตอนนี้เป็นสีน้ำตาลเข้ม) */
+        font-size: 15px !important; /* 🔠 ขนาดตัวหนังสือ */
+        font-weight: bold !important; /* 🅱️ ความหนาของตัวหนังสือ */
+        
+        /* โครงสร้างข้อความ (ตัดคำที่ยาวเกิน) */
         margin: 0 !important;
-        font-size: 14px !important; /* ปรับขนาดฟอนต์ให้สมส่วน */
-        color: #4b2e2e !important;
-        font-weight: bold !important;
         width: 100% !important;
         display: -webkit-box !important;
         -webkit-line-clamp: 2 !important; 

@@ -787,19 +787,10 @@ body.dark-mode .show-all:hover {
 
 /* ========================== */
 
-/* ========================================= */
-/* 1. ปกติซ่อนปุ่มดูทั้งหมดไว้ก่อน (เช่น บนหน้าจอคอม) */
-/* (ต้องอยู่นอก Media Query) */
-/* ========================================= */
-.view-all-card {
-    display: none !important;
-}
-
-/* ========================================= */
-/* 📱 โซนสำหรับหน้าจอมือถือทั่วไป (แท็บเล็ต / มือถือใหญ่) */
-/* ========================================= */
 @media (max-width: 768px) {
-    /* --- 1. จัดการ Navbar และลบไอคอนประหลาด --- */
+    /* ========================================= */
+    /* 1. จัดการ Navbar และลบไอคอนประหลาดในเมนู */
+    /* ========================================= */
     .navbar {
         padding: 0 20px !important;
         margin: 12px !important;
@@ -832,10 +823,14 @@ body.dark-mode .show-all:hover {
         margin: 0 !important;
         padding: 0 !important;
     }
+    
+    /* 🌟 จัดการลบไอคอนทุกรูปแบบหน้าชื่อเมนู (ดักจับให้ครอบคลุม) */
     .menu a::before, .menu a::after { content: none !important; display: none !important; }
     .menu a span.nav-icon, .menu a img, .menu a i { display: none !important; }
 
-    /* --- 2. จัดการเมนูสีขาวตอนกางออก --- */
+    /* ========================================= */
+    /* 2. จัดการเมนูสีขาวตอนกางออก */
+    /* ========================================= */
     .menu {
         display: none;
         flex-direction: column;
@@ -861,12 +856,14 @@ body.dark-mode .show-all:hover {
     body.dark-mode .menu a { color: #EADBC8; }
     body.dark-mode .menu a.active { color: #D4A373; border-color: #D4A373; }
 
-    /* --- 3. จัดระเบียบหัวข้อ หมวดศิลปินอิสระ --- */
+    /* ========================================= */
+    /* 3. จัดระเบียบหัวข้อ หมวดศิลปินอิสระ ไม่ให้ล้นจอ */
+    /* ========================================= */
     .artist-header, .category-header {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        padding: 0 15px !important;
+        padding: 0 15px !important; /* ลด padding ลงนิดนึงให้ตรงกับเนื้อหา */
         width: 100% !important;
         box-sizing: border-box !important;
         margin-bottom: 15px !important;
@@ -884,7 +881,9 @@ body.dark-mode .show-all:hover {
         color: #7B4F2C !important;
     }
 
-    /* --- 4. จัดการช่องค้นหา (หน้า artists) --- */
+    /* ========================================= */
+    /* 4. จัดการช่องค้นหา และปุ่มจัดเรียง (หน้า artists) */
+    /* ========================================= */
     .controls-wrapper, .search-sort-container {
         display: flex !important;
         flex-direction: column !important;
@@ -896,7 +895,7 @@ body.dark-mode .show-all:hover {
     }
     .search-box, .sort-container, .sort-box {
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 100% !important; /* ให้กว้างเต็มพื้นที่ที่เหลือ */
         margin: 0 !important;
         box-sizing: border-box !important;
     }
@@ -905,19 +904,23 @@ body.dark-mode .show-all:hover {
         box-sizing: border-box !important;
     }
 
-    /* --- 5. 🌟 การ์ดศิลปิน (กว้าง สวย มีพื้นที่หายใจ) --- */
+    /* ========================================= */
+    /* 5. 🌟 จัดระเบียบการ์ดศิลปินในมือถือ ให้กว้างขึ้น รูปใหญ่ขึ้น มีพื้นที่หายใจ */
+    /* ========================================= */
     #artists.artist-container, .artist-container, .artists-list-grid {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important; 
-        padding: 0 10px !important; 
+        gap: 10px !important; /* 🌟 ลดจาก 15px เป็น 10px เพื่อให้การ์ดกว้างขึ้น */
+        padding: 0 10px !important; /* 🌟 ลดขอบจอจาก 15px เป็น 10px ขยายพื้นที่ซ้ายขวา */
         box-sizing: border-box !important;
         width: 100% !important;
-        margin: 0 0 80px 0 !important; /* 🌟 ดันขอบล่างให้มีที่หายใจ ไม่โดนปุ่มบัง */
+        margin: 0 !important;
     }
+
+    /* 🌟 บังคับการ์ด: ลดกรอบด้านใน เพื่อเบ่งรูปภาพให้ใหญ่ขึ้น */
     #artists.artist-container .artist-card, .artist-card, .artists-list-grid .artist-card {
         background: #fff !important;
-        padding: 10px 10px 15px 10px !important; /* 🌟 ให้ชื่อศิลปินมีที่หายใจด้านล่าง */
+        padding: 10px !important; 
         border-radius: 14px !important;
         border: 1px solid #eadbc8 !important; 
         display: flex !important;
@@ -926,25 +929,32 @@ body.dark-mode .show-all:hover {
         justify-content: flex-start !important;
         text-align: center !important;
         text-decoration: none !important;
-        height: 100% !important; 
+        
+        /* 👇 แก้แค่บรรทัดนี้บรรทัดเดียวครับ 👇 */
+        height: 100% !important; /* 🌟 เปลี่ยนจาก 210px เป็น 100% เพื่อให้กรอบพอดีกับเนื้อหา และสูงเท่ากันทุกใบในแถว */
+        
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04) !important;
         box-sizing: border-box !important;
         margin: 0 !important;
         width: 100% !important;
     }
+
+    /* 🌟 ล็อกรูปให้เป็นจัตุรัสและขนาดเท่ากัน */
     #artists.artist-container .artist-card img, .artist-card img, .artists-list-grid .artist-card img {
         width: 100% !important;
         height: auto !important;
         aspect-ratio: 1 / 1 !important; 
         object-fit: cover !important; 
-        border-radius: 10px !important; 
+        border-radius: 10px !important; /* ลดความโค้งของรูปให้เข้ากับขอบบางๆ */
         display: block !important;
-        margin: 0 auto 8px auto !important; 
+        margin: 0 auto 8px auto !important; /* ขยับชื่อศิลปินขึ้นมานิดนึง */
         box-sizing: border-box !important;
     }
+
+    /* 🌟 ตัดชื่อที่ยาวเกินไปให้เหลือ 2 บรรทัด */
     #artists.artist-container .artist-card p, .artist-card h3, .artist-card p, .artists-list-grid .artist-card p {
         margin: 0 !important;
-        font-size: 14px !important; 
+        font-size: 14px !important; /* ปรับขนาดฟอนต์ให้สมส่วน */
         color: #4b2e2e !important;
         font-weight: bold !important;
         width: 100% !important;
@@ -956,19 +966,32 @@ body.dark-mode .show-all:hover {
         line-height: 1.3 !important;
     }
 
-    /* --- 6. 🌟 เพลงใหม่ล่าสุด (ขยายกว้าง ไม่ชนขอบจอ) --- */
+    /* ========================================= */
+    /* 🌟 ปรับแต่งหน้าเพลงใหม่ล่าสุดให้พอดีกับมือถือ */
+    /* ========================================= */
+    
+    /* ========================================= */
+    /* 1. คอนเทนเนอร์หลัก (ปรับขยายซ้ายขวาให้สุด) */
+    /* ========================================= */
     .songs-container {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 15px 5px !important; /* กว้างสุดๆ แต่ไม่ล้น */
+        
+        /* 🌟 ตรงนี้คือหัวใจสำคัญครับ! 
+           15px คือขอบบนล่าง 
+           5px คือขอบซ้ายขวา (เหลือน้อยมาก กล่องจะกว้างสุดๆ) */
+        padding: 15px 5px !important; 
+        
         box-sizing: border-box !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        margin: 0 0 80px 0 !important; /* 🌟 ดันขอบล่างให้มีที่หายใจ */
     }
-    /* 🌟 แก้ไข: เจาะจงให้เป็น .song-card ใน .songs-container เท่านั้น ป้องกันโค้ดชนกัน */
-    .songs-container .song-card {
+
+    /* ========================================= */
+    /* 2. กล่องเพลงแต่ละเพลง (กว้างเต็ม 100% ตามขอบที่ขยาย) */
+    /* ========================================= */
+    .song-card {
         width: 100% !important; 
         max-width: 100% !important;
         background: #ffffff !important;
@@ -984,26 +1007,30 @@ body.dark-mode .show-all:hover {
         align-items: center !important;
         text-align: center !important;
     }
-    .songs-container .song-card h3, 
-    .songs-container .song-card h4,
-    .songs-container .song-card strong {
-        margin: 0 0 5px 0 !important; 
+
+    /* 3. ปรับขนาดตัวหนังสือชื่อเพลง (สมมติว่าใช้แท็ก h3, h4 หรือ strong) */
+    .song-card h3, 
+    .song-card h4,
+    .song-card strong {
+        margin: 0 0 5px 0 !important; /* ดันชื่อศิลปินลงมานิดนึง */
         font-size: 16px !important;
-        color: #4b2e2e !important; 
+        color: #4b2e2e !important; /* สีน้ำตาลเข้ม */
         font-weight: bold !important;
     }
-    .songs-container .song-card p,
-    .songs-container .song-card span {
+
+    /* 4. ปรับขนาดตัวหนังสือชื่อศิลปิน (สมมติว่าใช้แท็ก p หรือ span) */
+    .song-card p,
+    .song-card span {
         margin: 0 !important;
         font-size: 14px !important;
-        color: #888888 !important; 
+        color: #888888 !important; /* สีเทาให้ดูเป็นตัวรอง */
     }
     
-    /* --- 7. การ์ดดูทั้งหมด --- */
+    /* ========================================= */
+    /* 6. แต่งหน้าตาการ์ดดูทั้งหมด (ใบที่ 6) ให้ความสูงตรงกับการ์ดศิลปิน */
+    /* ========================================= */
     .view-all-card {
-        grid-column: 1 / -1 !important; /* 🌟 เพิ่มบรรทัดนี้: สั่งให้ควบ 2 คอลัมน์ มันจะตกลงมาอยู่ตรงกลางแถวพอดีเป๊ะ */
-        
-        display: flex !important; 
+        display: flex !important;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -1011,8 +1038,7 @@ body.dark-mode .show-all:hover {
         border: 2px dashed #d4a373 !important;
         border-radius: 14px !important;
         text-decoration: none;
-        height: 100% !important; 
-        min-height: 160px !important; 
+        height: 210px !important; /* 🌟 ให้สูง 210px เท่าการ์ดศิลปินเป๊ะ */
         transition: transform 0.2s;
         cursor: pointer;
         padding: 10px !important;
@@ -1030,9 +1056,15 @@ body.dark-mode .show-all:hover {
         font-size: 20px;
         margin-bottom: 10px;
     }
-    .view-all-card .text { color: #7b4f2c; font-weight: bold; font-size: 14px; }
+    .view-all-card .text {
+        color: #7b4f2c;
+        font-weight: bold;
+        font-size: 14px;
+    }
     .view-all-card:hover { background: #eadbc8 !important; }
-    .view-all-circle-wrapper { display: none !important; } /* ซ่อนของเก่า */
+    
+    /* ซ่อนปุ่มวงกลมสีน้ำตาล "ดูทั้งหมด" แบบเก่าที่ลอยทับซ้อน */
+    .view-all-circle-wrapper { display: none !important; }
 }
 
 /* ========================================= */
@@ -1124,4 +1156,13 @@ body.dark-mode .show-all:hover {
 
 @media (max-width: 480px) {
     .song-container { grid-template-columns: 1fr; }
+    /* ศิลปินยังคงเป็น 2 คอลัมน์อยู่ เพราะเราไม่ได้แก้ตรงนี้ */
+}
+
+/* ========================================= */
+/* 1. ปกติซ่อนปุ่มดูทั้งหมดไว้ก่อน (เช่น บนหน้าจอคอม) */
+/* (ต้องอยู่นอก Media Query) */
+/* ========================================= */
+.view-all-card {
+    display: none !important;
 }

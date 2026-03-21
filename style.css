@@ -905,49 +905,40 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 🎨 โค้ดฉบับสมบูรณ์: การ์ดศิลปิน และ ลิสต์เพลง (Final Version) */
+    /* 🎨 โค้ดสำหรับปรับแต่งหน้าตา "การ์ดศิลปิน" โดยเฉพาะ */
     /* ========================================= */
 
-    /* 1. จัดพื้นที่กริดของการ์ดศิลปิน (เพิ่มพื้นที่หายใจด้านล่างจอ) */
-    #artists.artist-container, 
-    .artist-container, 
-    .artists-list-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important; 
-        padding: 0 10px !important; 
-        box-sizing: border-box !important;
-        width: 100% !important;
-        margin: 0 0 80px 0 !important; /* 🌟 ดันพื้นที่ด้านล่างสุดให้มีที่หายใจ ไม่โดนขอบจอหรือปุ่มบัง */
-    }
-
-    /* 2. ปรับแต่งตัวกล่องการ์ด (กรอบสีขาว) */
+    /* 1. ปรับแต่งตัวกล่องการ์ด (กรอบสีขาว) */
     #artists.artist-container .artist-card, 
     .artist-card, 
     .artists-list-grid .artist-card {
-        background: #ffffff !important; 
-        border: 1px solid #eadbc8 !important; 
-        border-radius: 16px !important; 
-        padding: 10px 10px 15px 10px !important; /* 🌟 ปรับขอบล่าง 15px ให้ชื่อศิลปินมีที่หายใจ */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important; 
+        background: #ffffff !important; /* 🎨 สีพื้นหลังของการ์ด (ตอนนี้เป็นสีขาว) */
+        border: 1px solid #eadbc8 !important; /* 📏 เส้นขอบการ์ด (ความหนา 1px สีน้ำตาลอ่อน) เปลี่ยนเป็น 0px ถ้าไม่ต้องการเส้นขอบ */
+        border-radius: 16px !important; /* 📐 ความโค้งมนของมุมการ์ด (เลขยิ่งมาก มุมยิ่งโค้ง) */
+        padding: 10px !important; /* 🔲 ระยะห่างขอบด้านใน (ลดเลขลง รูปจะใหญ่ขึ้นชิดขอบมากขึ้น) */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important; /* ☁️ เงาของการ์ด (เปลี่ยน 0.06 เป็นเลขที่มากขึ้น เช่น 0.15 ถ้าอยากให้เงาเข้มขึ้น) */
+        
+        /* โครงสร้างพื้นฐาน (แนะนำให้คงไว้) */
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
         text-align: center !important;
         text-decoration: none !important;
-        height: 100% !important; 
+        height: 100% !important; /* ให้กรอบยืดพอดีกับรูปและข้อความ */
         box-sizing: border-box !important;
         margin: 0 !important;
         width: 100% !important;
     }
 
-    /* 3. ปรับแต่งรูปภาพศิลปินด้านใน */
+    /* 2. ปรับแต่งรูปภาพศิลปินด้านใน */
     #artists.artist-container .artist-card img, 
     .artist-card img, 
     .artists-list-grid .artist-card img {
-        border-radius: 12px !important; 
-        margin: 0 auto 10px auto !important; 
+        border-radius: 12px !important; /* 📐 ความโค้งของมุมรูปภาพ (ควรน้อยกว่าความโค้งของการ์ดนิดนึง จะดูสวยครับ) */
+        margin: 0 auto 10px auto !important; /* ↕️ ระยะห่างระหว่างรูปภาพ กับ ชื่อศิลปินด้านล่าง (เลข 10px) */
+        
+        /* โครงสร้างรูป (บังคับเป็นจัตุรัส) */
         width: 100% !important;
         height: auto !important;
         aspect-ratio: 1 / 1 !important; 
@@ -956,14 +947,16 @@ body.dark-mode .show-all:hover {
         box-sizing: border-box !important;
     }
 
-    /* 4. ปรับแต่งชื่อศิลปิน */
+    /* 3. ปรับแต่งชื่อศิลปิน */
     #artists.artist-container .artist-card p, 
     .artist-card h3, 
     .artist-card p, 
     .artists-list-grid .artist-card p {
-        color: #4b2e2e !important; 
-        font-size: 15px !important; 
-        font-weight: bold !important; 
+        color: #4b2e2e !important; /* 🎨 สีตัวหนังสือชื่อศิลปิน (ตอนนี้เป็นสีน้ำตาลเข้ม) */
+        font-size: 15px !important; /* 🔠 ขนาดตัวหนังสือ */
+        font-weight: bold !important; /* 🅱️ ความหนาของตัวหนังสือ */
+        
+        /* โครงสร้างข้อความ (ตัดคำที่ยาวเกิน) */
         margin: 0 !important;
         width: 100% !important;
         display: -webkit-box !important;
@@ -975,39 +968,27 @@ body.dark-mode .show-all:hover {
     }
 
     /* ========================================= */
-    /* 🎵 ปรับแต่งหน้าเพลงใหม่ล่าสุดให้พอดีกับมือถือ */
+    /* 🌟 ปรับแต่งหน้าเพลงใหม่ล่าสุดให้พอดีกับมือถือ */
     /* ========================================= */
     
-    /* 5. คอนเทนเนอร์หลัก (ขยายซ้ายขวาให้สุด & เพิ่มที่หายใจด้านล่าง) */
+    /* ========================================= */
+    /* 1. คอนเทนเนอร์หลัก (ปรับขยายซ้ายขวาให้สุด) */
+    /* ========================================= */
     .songs-container {
         width: 100% !important;
         max-width: 100% !important;
+        
+        /* 🌟 ตรงนี้คือหัวใจสำคัญครับ! 
+           15px คือขอบบนล่าง 
+           5px คือขอบซ้ายขวา (เหลือน้อยมาก กล่องจะกว้างสุดๆ) */
         padding: 15px 5px !important; 
+        
         box-sizing: border-box !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        margin: 0 0 80px 0 !important; /* 🌟 ดันพื้นที่ด้านล่างสุดของหน้าเพลงให้มีที่หายใจด้วย */
     }
 
-    /* 6. กล่องเพลงแต่ละเพลง */
-    .song-card {
-        width: 100% !important; 
-        max-width: 100% !important;
-        background: #ffffff !important;
-        border: 1px solid #eadbc8 !important;
-        border-radius: 14px !important;
-        padding: 18px 15px !important; 
-        margin-bottom: 12px !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04) !important;
-        box-sizing: border-box !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align: center !important;
-    }
-    
     /* ========================================= */
     /* 2. กล่องเพลงแต่ละเพลง (กว้างเต็ม 100% ตามขอบที่ขยาย) */
     /* ========================================= */

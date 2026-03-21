@@ -1051,69 +1051,75 @@ body.dark-mode .show-all:hover {
         z-index: 999;
     }
 
-    /* --- 🌟 ใช้ Grid แก้ปัญหาปุ่ม ➕ ในหน้าลิสต์เพลงศิลปิน --- */
-    .song-header { display: none; }
+    /* --- 🌟 จัดการหน้าลิสต์เพลง (artist-detail.html / songs.html) ให้เป็นแถวแนวนอน --- */
+    .song-header { display: none !important; }
     
-    /* 🌟 แก้ไข: เจาะจงให้มีผลเฉพาะในหน้าศิลปิน (ป้องกันไปทับหน้าแรก) */
     .music-list .song-card, .song-list-container .song-card {
         display: grid !important;
-        grid-template-columns: 40px 1fr auto !important;
+        grid-template-columns: 35px 1fr auto !important; /* ซ้าย 35px | กลางยืดสุด | ขวาพอดีปุ่ม */
         grid-template-rows: auto auto !important;
-        align-items: center;
-        padding: 12px 15px;
-        border-bottom: 1px solid #eadbc8;
-        /* รีเซ็ตค่าอื่นๆ ที่อาจติดมาจากหน้าแรก */
-        background: transparent !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        margin-bottom: 0 !important;
+        align-items: center !important;
+        padding: 12px 15px !important;
+        
+        /* 🌟 รีเซ็ตค่าที่ติดมาจากหน้าแรกให้หมด */
+        background: #ffffff !important;
+        border: 1px solid #eadbc8 !important;
+        border-radius: 12px !important;
+        margin-bottom: 10px !important;
+        height: auto !important; /* 👈 ตัวนี้สำคัญมาก: ล้างความสูงที่ยืดเป็นตึกออกไป */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important;
+        text-align: left !important; /* บังคับชิดซ้าย */
     }
+
+    /* 1. ลำดับเพลง */
     .music-list .song-card > div:first-child, .song-number {
-        grid-column: 1 / 2;
-        grid-row: 1 / 3;
-        font-size: 15px;
-        margin: 0;
-        text-align: left;
-    }
-    .music-list .song-card > div:nth-child(2), .song-title {
-        grid-column: 2 / 3;
-        grid-row: 1 / 2;
+        grid-column: 1 / 2 !important;
+        grid-row: 1 / 3 !important;
         font-size: 15px !important;
+        font-weight: bold !important;
+        color: #7b4f2c !important;
         margin: 0 !important;
-        padding-right: 10px;
         text-align: left !important;
-        width: 100% !important;
-        font-weight: bold;
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        word-wrap: break-word !important;
-        line-height: 1.4 !important;
     }
+
+    /* 2. ชื่อเพลง */
+    .music-list .song-card > div:nth-child(2), .song-title {
+        grid-column: 2 / 3 !important;
+        grid-row: 1 / 2 !important;
+        font-size: 15px !important;
+        font-weight: bold !important;
+        color: #4b2e2e !important;
+        margin: 0 0 2px 0 !important;
+        padding-right: 10px !important;
+        text-align: left !important;
+        white-space: normal !important;
+        line-height: 1.3 !important;
+    }
+
+    /* 3. ชื่อศิลปิน */
     .music-list .song-card > div:nth-child(3), .song-artist {
-        grid-column: 2 / 3;
-        grid-row: 2 / 3;
-        font-size: 12px !important;
-        color: #888;
+        grid-column: 2 / 3 !important;
+        grid-row: 2 / 3 !important;
+        font-size: 13px !important;
+        color: #888888 !important;
         margin: 0 !important;
         text-align: left !important;
-        width: 100% !important;
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        word-wrap: break-word !important;
-        line-height: 1.4 !important;
+        line-height: 1.3 !important;
     }
-    .music-list .song-actions {
-        grid-column: 3 / 4;
-        grid-row: 1 / 3;
+
+    /* 4. ปุ่ม + และหัวใจ */
+    .music-list .song-actions, .song-actions {
+        grid-column: 3 / 4 !important;
+        grid-row: 1 / 3 !important;
         position: static !important;
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        margin-top: 0 !important;
+        display: flex !important;
+        gap: 12px !important;
+        align-items: center !important;
+        justify-content: flex-end !important; /* ดันปุ่มไปชิดขวาสุด */
+        margin: 0 !important;
     }
-    .action-btn { font-size: 20px !important; padding: 4px; }
+
+    .action-btn { font-size: 20px !important; padding: 4px !important; }
 }
 
 @media (max-width: 480px) {

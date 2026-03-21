@@ -1032,36 +1032,41 @@ body.dark-mode .show-all:hover {
 /* ========================================= */
 
 
-/* 🌟 การ์ดดูทั้งหมด (ใบที่ 6) */
+/* 🎨 แต่งหน้าตาการ์ดดูทั้งหมด (ใบที่ 6) */
 
 
 /* ========================================= */
 
 
-/* 1. ซ่อนไว้ก่อนเมื่อเปิดบนหน้าจอคอมพิวเตอร์ */
+/* 1. ปกติซ่อนไว้ก่อน (เช่น บนหน้าจอคอม) */
 
 .view-all-card {
-    display: none;
+    display: none !important;
+    /* ใช้ !important กันเหนียวเผื่อโดน JS สั่งโชว์ */
 }
 
 
-/* 2. ให้ปุ่มโผล่มา "เฉพาะในจอมือถือ" เพื่อเติมช่องว่าง */
+/* 2. ให้โผล่มา "เฉพาะในจอมือถือ" เท่านั้น */
 
 @media (max-width: 768px) {
     .view-all-card {
         display: flex !important;
+        /* เปิดใช้งาน !important */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         background: #fdfaf5 !important;
-        /* สีพื้นหลังอ่อนๆ ให้ดูเป็นปุ่ม */
+        /* สีพื้นหลังอ่อนๆ */
         border: 2px dashed #d4a373 !important;
-        /* ขอบเส้นประสีน้ำตาล */
+        /* ขอบเส้นประ */
         border-radius: 12px;
         text-decoration: none;
         aspect-ratio: 1 / 1.2;
-        /* บังคับสัดส่วนให้พอๆ กับรูปศิลปิน */
+        /* สัดส่วนให้เท่ารูปศิลปิน */
+        transition: transform 0.2s;
+        cursor: pointer;
     }
+    /* วงกลมลูกศร */
     .view-all-card .circle {
         width: 50px;
         height: 50px;
@@ -1074,9 +1079,14 @@ body.dark-mode .show-all:hover {
         font-size: 24px;
         margin-bottom: 12px;
     }
+    /* ตัวหนังสือ */
     .view-all-card .text {
         color: #7b4f2c;
         font-weight: bold;
         font-size: 15px;
+    }
+    .view-all-card:hover {
+        transform: scale(1.05);
+        background: #eadbc8 !important;
     }
 }

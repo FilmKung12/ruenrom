@@ -127,7 +127,7 @@ function showArtists() {
     container.innerHTML = htmlContent;
 }
 
-// ฟังก์ชันโชว์ศิลปินแบบสุ่ม
+// ฟังก์ชันโชว์ศิลปินแบบสุ่ม (แก้ไขใหม่เพื่อให้เติมปุ่ม "ดูทั้งหมด" ในมือถือ)
 function showRandomArtists(limit) {
     const container = document.getElementById("artists");
     if (!container) return;
@@ -136,6 +136,8 @@ function showRandomArtists(limit) {
     const list = shuffledArtists.slice(0, limit);
 
     let htmlContent = "";
+
+    // 1. สร้าง HTML ของศิลปิน 5 คนแรกตามปกติ
     list.forEach((a) => {
         htmlContent += `
             <div class="artist-card" onclick="openArtist('${a.name}')">
@@ -144,6 +146,20 @@ function showRandomArtists(limit) {
             </div>
         `;
     });
+
+    // 🌟 2. โค้ดส่วนที่เพิ่มใหม่: สร้างการ์ดใบที่ 6 (ปุ่มดูทั้งหมด)
+    // เราจะใช้ CSS (ที่ให้ไปก่อนหน้านี้) เป็นคนซ่อนปุ่มนี้ในคอม และโชว์ในมือถือครับ
+    const viewAllCardHTML = `
+        <a href="artists.html" class="artist-card view-all-card">
+            <div class="circle">➔</div>
+            <span class="text">ดูทั้งหมด</span>
+        </a>
+    `;
+
+    // 3. เอาปุ่มดูทั้งหมด ไปต่อท้ายศิลปิน 5 คน
+    htmlContent += viewAllCardHTML;
+
+    // 4. พ่น HTML ทั้งหมด (5 ศิลปิน + 1 ปุ่ม) ลงในหน้าเว็บ
     container.innerHTML = htmlContent;
 }
 

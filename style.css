@@ -1089,4 +1089,38 @@ body.dark-mode .show-all:hover {
         transform: scale(1.05);
         background: #eadbc8 !important;
     }
+    /* ================= ======================= */
+    /* 🌟 จัดการรูปศิลปินหมวดอิสระให้พอดีจอมือถือ */
+    /* ========================================= */
+    /* 1. จัดการตัว container (div#artists) ให้เว้นขอบนิดนึง */
+    #artists.artist-container {
+        padding: 0 15px !important;
+        /* เว้นขอบซ้ายขวา 15px */
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        /* บังคับ 2 คอลัมน์ */
+        gap: 20px !important;
+        /* ระยะห่างระหว่างภาพ */
+        box-sizing: border-box !important;
+        width: 100% !important;
+    }
+    /* 2. จัดการกล่องรูปภาพ (.artist-card) ให้ยืดหดตามตาราง */
+    #artists.artist-container .artist-card {
+        width: 100% !important;
+        /* กว้างสุดตามตาราง */
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        /* ล้าง margin ที่อาจจะดันออก */
+    }
+    /* 3. บังคับ "รูปภาพ" ให้หดตามกล่อง */
+    #artists.artist-container .artist-card img {
+        width: 100% !important;
+        /* บังคับกว้าง 100% ของกล่องครอบ */
+        height: auto !important;
+        /* รักษาอัตราส่วนภาพ */
+        max-width: 100% !important;
+        display: block !important;
+        box-sizing: border-box !important;
+    }
 }

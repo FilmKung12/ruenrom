@@ -914,19 +914,49 @@ body.dark-mode .show-all:hover {
 }
 
 
-/* ปรับแต่งความสวยงามของปุ่มให้เข้ากับดีไซน์คลีนๆ */
+/* 🌟 ปุ่มปกติ (ยังไม่ได้กด) 🌟 */
 
 .action-btn {
     display: inline-flex !important;
     background: none !important;
     border: none !important;
     font-size: 20px !important;
-    color: #7b4f2c !important;
-    /* ปรับเป็นสีน้ำตาลเข้าธีม */
+    color: #cccccc !important;
+    /* 👈 เปลี่ยนเป็นสีเทาอ่อน ให้รู้ว่ายังไม่ได้กด */
     padding: 5px !important;
     cursor: pointer !important;
-    transition: transform 0.2s !important;
-    /* เพิ่มลูกเล่นเด้งๆ ตอนกด */
+    transition: all 0.2s ease !important;
+    /* เพิ่ม all ให้เปลี่ยนสีสมูทขึ้น */
+}
+
+
+/* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ (Hover) ให้เข้มขึ้นนิดนึง */
+
+.action-btn:hover {
+    color: #7b4f2c !important;
+    /* เป็นสีน้ำตาลตอนเอาเมาส์ชี้ */
+    transform: scale(1.1) !important;
+    /* ขยายขึ้นนิดนึง */
+}
+
+
+/* เอฟเฟกต์ตอนคลิก */
+
+.action-btn:active {
+    transform: scale(0.9) !important;
+    /* ยุบลงตอนกด */
+}
+
+
+/* 🌟 สีปุ่มตอนกด "ถูกใจ" แล้ว 🌟 */
+
+
+/* (สมมติว่าเวลาคุณกดถูกใจ JavaScript จะเพิ่ม class ชื่อ "liked" หรือ "active" เข้าไปที่ปุ่ม) */
+
+.action-btn.liked,
+.action-btn.active {
+    color: #e63946 !important;
+    /* 👈 สีแดง! (ถ้าอยากให้เป็นสีน้ำตาลเข้มเข้าธีม ให้เปลี่ยนเป็น #7b4f2c ครับ) */
 }
 
 

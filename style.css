@@ -960,13 +960,6 @@ body.dark-mode .show-all:hover {
 }
 
 
-/* เอฟเฟกต์ตอนกดปุ่ม */
-
-.action-btn:active {
-    transform: scale(0.9) !important;
-}
-
-
 /* ========================================= */
 
 

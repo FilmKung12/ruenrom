@@ -343,6 +343,16 @@
         <img id="artistImageDisplay" class="artist-image" src="" alt="รูปภาพศิลปิน">
         <h1 id="artistNameDisplay" class="artist-title">กำลังโหลดข้อมูล...</h1>
 
+        <div class="controls-wrapper" style="margin: 20px auto 10px auto; max-width: 800px; padding: 0 10px; box-sizing: border-box; width: 100%;">
+            <form class="search-box" onsubmit="return false;" style="width: 100%; margin: 0;">
+                <div class="search-input" style="position: relative; width: 100%;">
+                    <span class="search-icon" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #7B4F2C;">🔎</span>
+                    <input type="text" id="searchSongInput" placeholder="ค้นหาเพลงของศิลปินนี้..." autocomplete="off" style="width: 100%; padding: 12px 15px 12px 45px; border-radius: 25px; border: 1px solid #d6c4b0; background-color: #fdfaf7; color: #4A3728; font-size: 16px; outline: none; transition: 0.3s; box-sizing: border-box; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                    <span id="clearSongSearch" class="clear-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #aaa; display: none;">✖</span>
+                </div>
+            </form>
+            <p id="noSongMatchMsg" style="display: none; color: #777; text-align: center; margin-top: 15px; width: 100%;">ไม่พบเพลงที่คุณค้นหา</p>
+        </div>
         <div class="songs-container">
             <div id="artist-songs-list">
                 <p class="loading-text">กำลังค้นหาข้อมูล...</p>
@@ -373,6 +383,9 @@
             title: "",
             artist: ""
         };
+
+        // 🌟 เพิ่มตัวแปรนี้ เพื่อเก็บเพลงทั้งหมดของศิลปินนี้ไว้ใช้ค้นหา
+        let allSongsForThisArtist = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -443,22 +456,22 @@
                         const cleanTargetArtist = targetArtist.trim().toLowerCase();
                         const fullArtistName = sArtist.toLowerCase();
 
-                        // 🔥 ขั้นตอนการแยกชื่อศิลปินหลัก:
-                        // แยกชื่อด้วยตัวแบ่งต่างๆ เช่น feat., ft., ร่วมกับ, x, & 
-                        // แล้วหยิบเอาแค่ "ชื่อแรกสุด" (Index 0) มาเช็ก
                         const mainArtistOnly = fullArtistName.split(/feat\.|ft\.|ร่วมกับ|x|&/i)[0].trim();
 
-                        // เช็กว่า "ศิลปินหลัก" ตรงกับหน้าที่เรากำลังดูอยู่ไหม
                         if (mainArtistOnly.includes(cleanTargetArtist)) {
                             filteredSongs.push({
                                 title: sSongTitle,
-                                artist: sArtist // แต่ตอนแสดงผล ยังโชว์ชื่อเต็มที่มีคน Feat. ได้เหมือนเดิม
+                                artist: sArtist
                             });
                         }
                     }
                 });
 
                 document.getElementById("artistImageDisplay").style.display = "none";
+
+                // 🌟 ให้ระบบจำเพลงทั้งหมดไว้ในตัวแปรที่เราสร้าง
+                allSongsForThisArtist = filteredSongs;
+
                 renderSongs(filteredSongs);
 
             } catch (err) {
@@ -471,7 +484,8 @@
         function renderSongs(songs) {
             const container = document.getElementById("artist-songs-list");
             if (songs.length === 0) {
-                container.innerHTML = "<p class='loading-text'>ไม่พบรายการเพลงของศิลปินคนนี้</p>";
+                // เปลี่ยนจากคำว่า "ไม่พบรายการเพลง" เป็นให้ว่างไว้ เพราะเรามีแจ้งเตือนตอนค้นหาแล้ว
+                container.innerHTML = "";
                 return;
             }
 
@@ -480,8 +494,6 @@
             container.innerHTML = songs.map((song, i) => {
                 const isLiked = likedSongs.some(likedSong => likedSong.title === song.title && likedSong.artist === song.artist);
                 const likeClass = isLiked ? 'action-btn liked' : 'action-btn';
-
-                // ... (โค้ดก่อนหน้าในฟังก์ชัน renderSongs) ...
 
                 return `
             <div class="song-card">
@@ -497,12 +509,10 @@
                 </div>
             </div>
         `;
-
-                // ... (โค้ดหลังจากนี้ในฟังก์ชัน renderSongs เหมือนเดิม) ...
             }).join('');
         }
 
-        // --- ฟังก์ชันจัดการปุ่มที่ดึงค่ามาจาก data- attribute ---
+        // --- ฟังก์ชันจัดการปุ่ม ---
         function handleToggleLike(btnElement) {
             const title = btnElement.getAttribute('data-title');
             const artist = btnElement.getAttribute('data-artist');
@@ -529,7 +539,6 @@
             openModal(title, artist);
         }
 
-        // --- ระบบเพิ่มเพลงเข้าเพลย์ลิสต์ (Modal) ---
         function openModal(title, artist) {
             currentAddingSong = {
                 title,
@@ -577,6 +586,53 @@
                 }
             }
         }
+
+        /* ========================================= */
+        /* 🌟 ระบบทำงานของกล่องค้นหาเพลง (ค้นหาจาก Data ชัวร์ 100%) 🌟 */
+        /* ========================================= */
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchSongInput = document.getElementById("searchSongInput");
+            const clearSongSearchBtn = document.getElementById("clearSongSearch");
+            const noSongMatchMsg = document.getElementById("noSongMatchMsg");
+
+            if (searchSongInput) {
+                searchSongInput.addEventListener("input", function() {
+                    const keyword = this.value.toLowerCase().trim();
+
+                    // โชว์/ซ่อน ปุ่มกากบาท (✖)
+                    if (clearSongSearchBtn) {
+                        clearSongSearchBtn.style.display = keyword.length > 0 ? "block" : "none";
+                    }
+
+                    // 🌟 กรองเพลงจาก Array โดยตรง
+                    const matchedSongs = allSongsForThisArtist.filter(song =>
+                        song.title.toLowerCase().includes(keyword)
+                    );
+
+                    // แจ้งเตือนถ้าไม่พบเพลง
+                    if (noSongMatchMsg) {
+                        if (matchedSongs.length === 0 && allSongsForThisArtist.length > 0) {
+                            noSongMatchMsg.style.display = "block";
+                        } else {
+                            noSongMatchMsg.style.display = "none";
+                        }
+                    }
+
+                    // 🌟 วาดหน้าจอใหม่ด้วยเพลงที่หาเจอ (ลำดับจะเรียง 1, 2, 3 อัตโนมัติ)
+                    renderSongs(matchedSongs);
+                });
+            }
+
+            // ระบบปุ่มกากบาทล้างคำค้นหา
+            if (clearSongSearchBtn) {
+                clearSongSearchBtn.addEventListener("click", function() {
+                    if (searchSongInput) {
+                        searchSongInput.value = "";
+                        searchSongInput.dispatchEvent(new Event("input"));
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

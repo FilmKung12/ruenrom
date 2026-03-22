@@ -1254,3 +1254,38 @@ body.dark-mode .show-all:hover {
     margin-top: 10px !important;
     /* เพิ่มพื้นที่หายใจด้านบนกล่องเพลงอีกนิด */
 }
+
+
+/* ========================================= */
+
+
+/* 💻 ดันศิลปินไปฝั่งขวา (เฉพาะหน้า songs.html และเฉพาะจอกว้าง) */
+
+
+/* ========================================= */
+
+@media (min-width: 769px) {
+    /* สั่งการเฉพาะหน้าที่มีป้าย songs-page */
+    .songs-page .song-card {
+        display: grid !important;
+        grid-template-columns: 50px 1fr 1fr auto !important;
+        /* แบ่งพื้นที่เป็น 4 ส่วน */
+        align-items: center !important;
+    }
+    .songs-page .song-number {
+        grid-column: 1 / 2 !important;
+    }
+    .songs-page .song-title {
+        grid-column: 2 / 3 !important;
+        margin: 0 !important;
+    }
+    /* 🌟 ดันชื่อศิลปินไปฝั่งขวา */
+    .songs-page .song-artist {
+        grid-column: 3 / 4 !important;
+        text-align: right !important;
+        /* จัดข้อความชิดขวา */
+        padding-right: 20px !important;
+        /* เว้นระยะห่างจากขอบขวาหรือปุ่ม */
+        margin: 0 !important;
+    }
+}

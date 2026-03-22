@@ -11,60 +11,63 @@
 
 <body>
 
-    <header class="navbar">
-        <a href="index.html" class="logo">Ruenrom 🎧</a>
+    <body class="songs-page">
 
-        <nav id="menu" class="menu">
-            <a href="index.html">หน้าหลัก</a>
-            <a href="songs.html">เพลง</a>
-            <a href="artists.html">ศิลปิน</a>
-            <a href="likes.html">ถูกใจ</a>
-            <a href="playlists.html">เพลย์ลิสต์</a>
-        </nav>
+        <header class="navbar">
+            <a href="index.html" class="logo">Ruenrom 🎧</a>
 
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
-        </div>
-    </header>
+            <nav id="menu" class="menu">
+                <a href="index.html">หน้าหลัก</a>
+                <a href="songs.html">เพลง</a>
+                <a href="artists.html">ศิลปิน</a>
+                <a href="likes.html">ถูกใจ</a>
+                <a href="playlists.html">เพลย์ลิสต์</a>
+            </nav>
 
-    <div class="controls-wrapper">
-
-        <div></div>
-
-        <form class="search-box" onsubmit="return false;">
-            <div class="search-input">
-                <span class="search-icon">🔎</span>
-                <input type="text" id="searchInput" placeholder="ค้นหาเพลง ศิลปิน..." autocomplete="off">
-                <span id="clearSearch" class="clear-search">✖</span>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="menu-btn" onclick="toggleMenu()" aria-label="เปิด/ปิด เมนู">☰</button>
             </div>
-        </form>
+        </header>
 
-        <div class="sort-container">
-            <select id="sortSelect" class="sort-select" onchange="applySort()">
+        <div class="controls-wrapper">
+
+            <div></div>
+
+            <form class="search-box" onsubmit="return false;">
+                <div class="search-input">
+                    <span class="search-icon">🔎</span>
+                    <input type="text" id="searchInput" placeholder="ค้นหาเพลง ศิลปิน..." autocomplete="off">
+                    <span id="clearSearch" class="clear-search">✖</span>
+                </div>
+            </form>
+
+            <div class="sort-container">
+                <select id="sortSelect" class="sort-select" onchange="applySort()">
                 <option value="default">เรียงตามลำดับเดิม</option>
                 <option value="title-asc">ชื่อเพลง (ก-ฮ, A-Z)</option>
                 <option value="title-desc">ชื่อเพลง (ฮ-ก, Z-A)</option>
                 <option value="artist-asc">ชื่อศิลปิน (ก-ฮ, A-Z)</option>
             </select>
+            </div>
+
         </div>
 
-    </div>
 
-    <div class="songs-container">
-        <div class="song-header">
-            <span class="col-number">ลำดับ</span>
-            <span class="col-title">ชื่อเพลง</span>
-            <span class="col-artist">ศิลปิน</span>
+        <div class="songs-container">
+            <div class="song-header">
+                <span class="col-number">ลำดับ</span>
+                <span class="col-title">ชื่อเพลง</span>
+                <span class="col-artist">ศิลปิน</span>
+            </div>
+
+            <div id="song-list"></div>
+
+            <div id="pagination"></div>
         </div>
 
-        <div id="song-list"></div>
+        <script src="script.js"></script>
+        <script src="songs.js"></script>
 
-        <div id="pagination"></div>
-    </div>
-
-    <script src="script.js"></script>
-    <script src="songs.js"></script>
-
-</body>
+    </body>
 
 </html>

@@ -922,29 +922,37 @@ body.dark-mode .show-all:hover {
     border: none !important;
     font-size: 20px !important;
     color: #cccccc !important;
-    /* 👈 เปลี่ยนเป็นสีเทาอ่อน ให้รู้ว่ายังไม่ได้กด */
+    /* สีเทาตอนยังไม่กด */
     padding: 5px !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    /* เพิ่ม all ให้เปลี่ยนสีสมูทขึ้น */
 }
 
 
-/* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ (Hover) ให้เข้มขึ้นนิดนึง */
+/* 🌟 แก้ปัญหาแตะแล้วสีน้ำตาลค้าง: ให้ Hover ทำงานเฉพาะคนที่มีเมาส์จริงๆ 🌟 */
 
-.action-btn:hover {
-    color: #7b4f2c !important;
-    /* เป็นสีน้ำตาลตอนเอาเมาส์ชี้ */
-    transform: scale(1.1) !important;
-    /* ขยายขึ้นนิดนึง */
+@media (hover: hover) {
+    .action-btn:hover {
+        color: #7b4f2c !important;
+        /* เป็นสีน้ำตาลเฉพาะตอนเอาเมาส์ชี้ */
+        transform: scale(1.1) !important;
+    }
 }
 
 
-/* เอฟเฟกต์ตอนคลิก */
+/* เอฟเฟกต์ตอนกด/แตะปุ่ม (เด้งยุบตัว) */
 
 .action-btn:active {
     transform: scale(0.9) !important;
-    /* ยุบลงตอนกด */
+}
+
+
+/* 🌟 สีปุ่มตอนกด "ถูกใจ" แล้ว 🌟 */
+
+.action-btn.liked,
+.action-btn.active {
+    color: #e63946 !important;
+    /* สีแดง ❤️ */
 }
 
 

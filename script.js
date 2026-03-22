@@ -104,19 +104,35 @@ fetch(artistURL)
     })
     .catch(error => console.error("Error fetching artists:", error));
 
-// ฟังก์ชันโชว์ศิลปินแบบเรียงปกติ
+/* ========================= */
+/* ระบบแบ่งหน้า (Pagination) สำหรับหน้าศิลปิน */
+/* ========================= */
+const artistsPerPage = 20; // จำนวนศิลปินที่แสดงต่อหน้า
+let currentArtistPage = 1; // หน้าปัจจุบันที่กำลังแสดง
+
+// ฟังก์ชันโชว์ศิลปินแบบเรียงปกติ (และแบ่งหน้า)
 function showArtists() {
     const container = document.getElementById("artists");
     if (!container) return;
 
+    // คำนวณจุดเริ่มต้นและสิ้นสุดของข้อมูลในหน้านี้
+    const startIndex = (currentArtistPage - 1) * artistsPerPage;
+    const endIndex = startIndex + artistsPerPage;
+
+    // ดึงเฉพาะข้อมูลของหน้านี้
+    const artistsToShow = filteredArtists.slice(startIndex, endIndex);
+
     let htmlContent = "";
 
     if (filteredArtists.length === 0) {
-        container.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; color: #777;'>ไม่พบศิลปินที่คุณค้นหา</p>";
+        container.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; color: #777; margin-top: 50px;'>ไม่พบศิลปินที่คุณค้นหา</p>";
+        // ล้างปุ่มเปลี่ยนหน้าทิ้ง
+        const paginationContainer = document.getElementById("pagination");
+        if (paginationContainer) paginationContainer.innerHTML = "";
         return;
     }
 
-    filteredArtists.forEach((a) => {
+    artistsToShow.forEach((a) => {
         htmlContent += `
             <div class="artist-card" onclick="openArtist('${a.name}')">
                 <img src="${a.image}" alt="${a.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
@@ -124,7 +140,65 @@ function showArtists() {
             </div>
         `;
     });
+
     container.innerHTML = htmlContent;
+
+    // เรียกสร้างปุ่มเปลี่ยนหน้าด้านล่างสุด
+    renderArtistPagination();
+}
+
+// ฟังก์ชันสร้างปุ่มตัวเลขหน้า (1, 2, 3...)
+function renderArtistPagination() {
+    const paginationContainer = document.getElementById("pagination");
+    if (!paginationContainer) return; // ถ้าในหน้า index.html ไม่มีกล่องนี้ก็ไม่เป็นไร
+
+    paginationContainer.innerHTML = ""; // ล้างปุ่มเก่า
+
+    // หาจำนวนหน้าทั้งหมด
+    const totalPages = Math.ceil(filteredArtists.length / artistsPerPage);
+
+    if (totalPages <= 1) return; // ถ้ามีหน้าเดียว ซ่อนปุ่มไปเลย
+
+    // ปุ่ม "« กลับ"
+    const prevBtn = document.createElement("button");
+    prevBtn.innerHTML = "« กลับ";
+    prevBtn.className = "page-btn";
+    prevBtn.disabled = currentArtistPage === 1;
+    prevBtn.onclick = () => {
+        if (currentArtistPage > 1) {
+            currentArtistPage--;
+            showArtists();
+            window.scrollTo({ top: 0, behavior: "smooth" }); // เลื่อนกลับขึ้นไปดูศิลปินคนแรกของหน้าใหม่
+        }
+    };
+    paginationContainer.appendChild(prevBtn);
+
+    // ปุ่มตัวเลขหน้า
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.innerText = i;
+        pageBtn.className = `page-btn ${i === currentArtistPage ? "active" : ""}`;
+        pageBtn.onclick = () => {
+            currentArtistPage = i;
+            showArtists();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+        paginationContainer.appendChild(pageBtn);
+    }
+
+    // ปุ่ม "ถัดไป »"
+    const nextBtn = document.createElement("button");
+    nextBtn.innerHTML = "ถัดไป »";
+    nextBtn.className = "page-btn";
+    nextBtn.disabled = currentArtistPage === totalPages;
+    nextBtn.onclick = () => {
+        if (currentArtistPage < totalPages) {
+            currentArtistPage++;
+            showArtists();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    };
+    paginationContainer.appendChild(nextBtn);
 }
 
 // ฟังก์ชันโชว์ศิลปินแบบสุ่ม (แก้ไขใหม่เพื่อให้เติมปุ่ม "ดูทั้งหมด" ในมือถือ)
@@ -185,7 +259,19 @@ if (searchArtistInput) {
             );
         }
 
+        // 🌟 เพิ่ม 1 บรรทัดตรงนี้: บังคับกลับไปหน้า 1 เมื่อพิมพ์ค้นหาใหม่
+        currentArtistPage = 1;
+
         showArtists();
+    });
+}
+
+if (clearArtistSearchBtn) {
+    clearArtistSearchBtn.addEventListener("click", function() {
+        if (searchArtistInput) {
+            searchArtistInput.value = "";
+            searchArtistInput.dispatchEvent(new Event("input"));
+        }
     });
 }
 
@@ -285,6 +371,9 @@ function applyArtistSort() {
     } else if (sortValue === "default") {
         filteredArtists.sort((a, b) => a.originalIndex - b.originalIndex);
     }
+
+    // 🌟 เพิ่ม 1 บรรทัดตรงนี้: บังคับกลับไปหน้า 1 เมื่อเปลี่ยนแบบจัดเรียง
+    currentArtistPage = 1;
 
     showArtists();
 }

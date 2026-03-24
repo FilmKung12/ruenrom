@@ -104,11 +104,14 @@ fetch(artistURL)
     })
     .catch(error => console.error("Error fetching artists:", error));
 
+
 /* ========================= */
 /* ระบบแบ่งหน้า (Pagination) สำหรับหน้าศิลปิน */
 /* ========================= */
-const artistsPerPage = 20; // จำนวนศิลปินที่แสดงต่อหน้า
-let currentArtistPage = 1; // หน้าปัจจุบันที่กำลังแสดง
+const artistsPerPage = 20; 
+
+// 🌟 แก้ไข: ให้ระบบเช็กว่าจำหน้าไหนไว้ ถ้ารีเฟรชให้ดึงมาใช้ ถ้าไม่มีให้เริ่มหน้า 1
+let currentArtistPage = parseInt(sessionStorage.getItem('savedArtistPage')) || 1;
 
 // ฟังก์ชันโชว์ศิลปินแบบเรียงปกติ (และแบ่งหน้า)
 function showArtists() {
@@ -133,8 +136,11 @@ function showArtists() {
     }
 
     artistsToShow.forEach((a) => {
+        // 🌟 แก้ไข: เติม \ หน้าเครื่องหมาย ' เพื่อกันโค้ดพัง (เช่น Jetset'er)
+        const safeName = a.name.replace(/'/g, "\\'"); 
+        
         htmlContent += `
-            <div class="artist-card" onclick="openArtist('${a.name}')">
+            <div class="artist-card" onclick="openArtist('${safeName}')">
                 <img src="${a.image}" alt="${a.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
                 <p>${a.name}</p>
             </div>
@@ -167,8 +173,9 @@ function renderArtistPagination() {
     prevBtn.onclick = () => {
         if (currentArtistPage > 1) {
             currentArtistPage--;
+            sessionStorage.setItem('savedArtistPage', currentArtistPage); // 🌟 จำเลขหน้า
             showArtists();
-            window.scrollTo({ top: 0, behavior: "smooth" }); // เลื่อนกลับขึ้นไปดูศิลปินคนแรกของหน้าใหม่
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
     paginationContainer.appendChild(prevBtn);
@@ -180,11 +187,13 @@ function renderArtistPagination() {
         pageBtn.className = `page-btn ${i === currentArtistPage ? "active" : ""}`;
         pageBtn.onclick = () => {
             currentArtistPage = i;
+            sessionStorage.setItem('savedArtistPage', currentArtistPage); // 🌟 จำเลขหน้า
             showArtists();
             window.scrollTo({ top: 0, behavior: "smooth" });
         };
         paginationContainer.appendChild(pageBtn);
     }
+    
 
     // ปุ่ม "ถัดไป »"
     const nextBtn = document.createElement("button");
@@ -194,6 +203,7 @@ function renderArtistPagination() {
     nextBtn.onclick = () => {
         if (currentArtistPage < totalPages) {
             currentArtistPage++;
+            sessionStorage.setItem('savedArtistPage', currentArtistPage); // 🌟 จำเลขหน้า
             showArtists();
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
@@ -213,8 +223,11 @@ function showRandomArtists(limit) {
 
     // 1. สร้าง HTML ของศิลปิน 5 คนแรกตามปกติ
     list.forEach((a) => {
+        // 🌟 แก้ไข: เติม \ หน้าเครื่องหมาย ' เช่นกัน
+        const safeName = a.name.replace(/'/g, "\\'");
+        
         htmlContent += `
-            <div class="artist-card" onclick="openArtist('${a.name}')">
+            <div class="artist-card" onclick="openArtist('${safeName}')">
                 <img src="${a.image}" alt="${a.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/150'">
                 <p>${a.name}</p>
             </div>
@@ -259,9 +272,9 @@ if (searchArtistInput) {
             );
         }
 
-        // 🌟 เพิ่ม 1 บรรทัดตรงนี้: บังคับกลับไปหน้า 1 เมื่อพิมพ์ค้นหาใหม่
+        // ใส่ไว้ในส่วนของการค้นหา (searchArtistInput)
         currentArtistPage = 1;
-
+        sessionStorage.setItem('savedArtistPage', 1); // 🌟 สั่งให้ความจำกลับไปหน้า 1
         showArtists();
     });
 }
@@ -275,14 +288,7 @@ if (clearArtistSearchBtn) {
     });
 }
 
-if (clearArtistSearchBtn) {
-    clearArtistSearchBtn.addEventListener("click", function() {
-        if (searchArtistInput) {
-            searchArtistInput.value = "";
-            searchArtistInput.dispatchEvent(new Event("input"));
-        }
-    });
-}
+
 
 /* ========================= */
 /* การจัดการเมื่อคลิกเลือกศิลปิน */
@@ -372,8 +378,8 @@ function applyArtistSort() {
         filteredArtists.sort((a, b) => a.originalIndex - b.originalIndex);
     }
 
-    // 🌟 เพิ่ม 1 บรรทัดตรงนี้: บังคับกลับไปหน้า 1 เมื่อเปลี่ยนแบบจัดเรียง
-    currentArtistPage = 1;
-
-    showArtists();
+    // ใส่ไว้ท้ายฟังก์ชัน applyArtistSort()
+        currentArtistPage = 1;
+        sessionStorage.setItem('savedArtistPage', 1); // 🌟 สั่งให้ความจำกลับไปหน้า 1
+        showArtists();
 }

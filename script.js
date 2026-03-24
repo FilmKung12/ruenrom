@@ -358,6 +358,9 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ========================= */
 /* 🔥 ระบบจัดเรียงศิลปิน (SORT) */
 /* ========================= */
+
+let isFirstLoad = true; // 🌟 เพิ่มตัวแปรไว้จำว่า "นี่เพิ่งโหลดหน้าเว็บครั้งแรกนะ"
+
 function applyArtistSort() {
     const sortSelect = document.getElementById("artistSortSelect");
 
@@ -378,8 +381,13 @@ function applyArtistSort() {
         filteredArtists.sort((a, b) => a.originalIndex - b.originalIndex);
     }
 
-    // ใส่ไว้ท้ายฟังก์ชัน applyArtistSort()
+    // 🌟 เช็กว่า: ถ้าไม่ใช่การโหลดครั้งแรก (คือคนจงใจกดเปลี่ยนการจัดเรียง) ค่อยเด้งกลับไปหน้า 1
+    if (!isFirstLoad) {
         currentArtistPage = 1;
-        sessionStorage.setItem('savedArtistPage', 1); // 🌟 สั่งให้ความจำกลับไปหน้า 1
-        showArtists();
+        sessionStorage.setItem('savedArtistPage', 1); 
+    }
+    
+    isFirstLoad = false; // ปลดล็อกว่าผ่านการโหลดครั้งแรกไปแล้ว
+
+    showArtists();
 }
